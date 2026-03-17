@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "911406410860",
+    "project_id": "marica-futebol-clube",
+    "storage_bucket": "marica-futebol-clube.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:911406410860:android:606138261615d645ec7c49",
+        "android_client_info": {
+          "package_name": "marica.futebol.clube"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDaRBdK6fHM8Poz5zXlj7q5ugnVK-6H-Cs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

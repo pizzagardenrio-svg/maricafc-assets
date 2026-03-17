@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Match Intelligence - O Estrategista</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "ink": "#1A1A1A",
+                        "paper": "#F4F4F0",
+                        "blueprint": "#000080",
+                        "muted": "#858580",
+                        "alert": "#FF0000",
+                        "success": "#00B060",
+                        "border-std": "#E5E5E0",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"],
+                    },
+                    borderRadius: {
+                        "sm": "2px", 
+                        "md": "4px",
+                    },
+                    spacing: {
+                        "4.5": "1.125rem",
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for horizontal scrolling elements */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        /* Tactical grid pattern for background */
+        .bg-grid-pattern {
+            background-image: linear-gradient(#E5E5E0 1px, transparent 1px), linear-gradient(90deg, #E5E5E0 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        /* Blinking animation for live time */
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        .animate-blink {
+            animation: blink 1s infinite;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-paper text-ink font-body min-h-screen flex flex-col antialiased">
+<!-- Sticky Header -->
+<header class="sticky top-0 z-50 bg-paper border-b border-border-std pt-safe-top">
+<!-- Navigation Bar -->
+<div class="flex items-center justify-between px-4 h-14 bg-white">
+<button class="flex items-center justify-center w-10 h-10 hover:bg-paper rounded-sm transition-colors text-ink">
+<span class="material-symbols-outlined text-[24px]">arrow_back</span>
+</button>
+<h1 class="font-display font-semibold text-lg tracking-tight uppercase">Match Intelligence</h1>
+<button class="flex items-center justify-center w-10 h-10 hover:bg-paper rounded-sm transition-colors text-ink">
+<span class="material-symbols-outlined text-[24px]">share</span>
+</button>
+</div>
+<!-- Scoreboard -->
+<div class="px-4 py-4 bg-white border-t border-border-std">
+<div class="flex items-center justify-between gap-4">
+<!-- Home Team -->
+<div class="flex flex-col items-center flex-1">
+<div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-2 overflow-hidden border border-border-std relative">
+<!-- Abstract team logo representation -->
+<div class="absolute inset-0 bg-[#000080] opacity-20" data-alt="Blue abstract geometric pattern representing Chelsea FC logo"></div>
+<span class="font-display font-bold text-blueprint z-10">MAR</span>
+</div>
+<span class="font-display font-bold text-xl tracking-tight">Maricá FC</span>
+</div>
+<!-- Score & Time -->
+<div class="flex flex-col items-center justify-center w-24">
+<div class="bg-ink text-white px-3 py-1 rounded-sm mb-2 flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-alert animate-blink"></span>
+<span class="font-mono text-sm font-medium tracking-wider">LIVE</span>
+</div>
+<div class="font-mono text-4xl font-bold tracking-tighter leading-none mb-1">
+                        2<span class="mx-1 text-muted opacity-50">-</span>1
+                    </div>
+<div class="font-mono text-blueprint font-medium text-sm">
+                        67<span class="animate-blink">'</span>
+</div>
+</div>
+<!-- Away Team -->
+<div class="flex flex-col items-center flex-1">
+<div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-2 overflow-hidden border border-border-std relative">
+<!-- Abstract team logo representation -->
+<div class="absolute inset-0 bg-red-600 opacity-20" data-alt="Red abstract geometric pattern representing Arsenal FC logo"></div>
+<span class="font-display font-bold text-red-700 z-10">POR</span>
+</div>
+<span class="font-display font-bold text-xl tracking-tight">Portuguesa RJ</span>
+</div>
+</div>
+<!-- Scorers (Compact) -->
+<div class="flex justify-between mt-3 text-xs text-muted font-mono border-t border-dashed border-border-std pt-2">
+<div class="text-left">
+<p>12' Pablo Thomaz</p>
+<p>45+2' Sandro</p>
+</div>
+<div class="text-right">
+<p>34' Hernane</p>
+</div>
+</div>
+</div>
+<!-- Tabs -->
+<div class="flex border-b border-border-std bg-white overflow-x-auto hide-scrollbar">
+<button class="flex-1 px-4 py-3 text-sm font-display font-bold tracking-wider text-blueprint border-b-2 border-blueprint whitespace-nowrap">OVERVIEW</button>
+<button class="flex-1 px-4 py-3 text-sm font-display font-medium tracking-wider text-muted hover:text-ink whitespace-nowrap">LINEUPS</button>
+<button class="flex-1 px-4 py-3 text-sm font-display font-medium tracking-wider text-muted hover:text-ink whitespace-nowrap">STATS</button>
+<button class="flex-1 px-4 py-3 text-sm font-display font-medium tracking-wider text-muted hover:text-ink whitespace-nowrap">TIMELINE</button>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 pb-24 overflow-y-auto">
+<!-- Pitch Visualizer Section -->
+<section class="p-4">
+<div class="flex justify-between items-center mb-3">
+<h2 class="font-display font-semibold text-sm uppercase tracking-wide text-muted">Tactical Shape</h2>
+<div class="flex gap-2">
+<span class="w-2 h-2 bg-blueprint rounded-full"></span>
+<span class="text-[10px] font-mono text-muted uppercase">MAR (4-3-3)</span>
+</div>
+</div>
+<!-- Abstract Pitch Board -->
+<div class="relative w-full aspect-[4/5] bg-white border border-border-std rounded-sm overflow-hidden bg-grid-pattern shadow-sm">
+<!-- Pitch Markings -->
+<div class="absolute inset-4 border border-border-std opacity-50 rounded-sm"></div>
+<div class="absolute top-1/2 left-4 right-4 h-px bg-border-std opacity-50"></div>
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 border border-border-std rounded-full opacity-50"></div>
+<!-- Home Team Positions (Blue) -->
+<!-- GK -->
+<div class="absolute bottom-[5%] left-1/2 -translate-x-1/2 w-6 h-6 bg-white border-2 border-blueprint rounded-full flex items-center justify-center text-[10px] font-mono font-bold text-ink shadow-sm z-10">1</div>
+<!-- DEF -->
+<div class="absolute bottom-[20%] left-[20%] w-6 h-6 bg-blueprint text-white rounded-full flex items-center justify-center text-[10px] font-mono font-bold shadow-sm z-10">26</div>
+<div class="absolute bottom-[20%] left-1/2 -translate-x-1/2 w-6 h-6 bg-blueprint text-white rounded-full flex items-center justify-center text-[10px] font-mono font-bold shadow-sm z-10">6</div>
+<div class="absolute bottom-[20%] right-[20%] w-6 h-6 bg-blueprint text-white rounded-full flex items-center justify-center text-[10px] font-mono font-bold shadow-sm z-10">2</div>
+<!-- MID -->
+<div class="absolute bottom-[40%] left-[10%] w-6 h-6 bg-blueprint text-white rounded-full flex items-center justify-center text-[10px] font-mono font-bold shadow-sm z-10">21</div>
+<div class="absolute bottom-[35%] left-[35%] w-6 h-6 bg-blueprint text-white rounded-full flex items-center justify-center text-[10px] font-mono font-bold shadow-sm z-10">8</div>
+<div class="absolute bottom-[35%] right-[35%] w-6 h-6 bg-blueprint text-white rounded-full flex items-center justify-center text-[10px] font-mono font-bold shadow-sm z-10">25</div>
+<div class="absolute bottom-[40%] right-[10%] w-6 h-6 bg-blueprint text-white rounded-full flex items-center justify-center text-[10px] font-mono font-bold shadow-sm z-10">24</div>
+<!-- FWD -->
+<div class="absolute top-[35%] left-[20%] w-6 h-6 bg-blueprint text-white rounded-full flex items-center justify-center text-[10px] font-mono font-bold shadow-sm z-10">7</div>
+<div class="absolute top-[30%] left-1/2 -translate-x-1/2 w-6 h-6 bg-blueprint text-white rounded-full flex items-center justify-center text-[10px] font-mono font-bold shadow-sm z-10">15</div>
+<div class="absolute top-[35%] right-[20%] w-6 h-6 bg-blueprint text-white rounded-full flex items-center justify-center text-[10px] font-mono font-bold shadow-sm z-10">20</div>
+<!-- Attack Vector Arrows -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+<!-- Left Wing Attack -->
+<path d="M 60 400 Q 60 300 80 250" fill="none" marker-end="url(#arrowhead)" stroke="#000080" stroke-dasharray="4 2" stroke-width="2"></path>
+<!-- Central Push -->
+<path d="M 180 350 L 180 280" fill="none" marker-end="url(#arrowhead)" stroke="#000080" stroke-dasharray="4 2" stroke-width="2"></path>
+<defs>
+<marker id="arrowhead" markerheight="4" markerwidth="6" orient="auto" refx="0" refy="2">
+<polygon fill="#000080" points="0 0, 6 2, 0 4"></polygon>
+</marker>
+</defs>
+</svg>
+<!-- Opponent Ghosts (Minimal) -->
+<div class="absolute top-[10%] left-1/2 -translate-x-1/2 w-5 h-5 bg-transparent border border-muted rounded-full opacity-40"></div>
+<div class="absolute top-[20%] left-[30%] w-5 h-5 bg-transparent border border-muted rounded-full opacity-40"></div>
+<div class="absolute top-[20%] right-[30%] w-5 h-5 bg-transparent border border-muted rounded-full opacity-40"></div>
+</div>
+</section>
+<!-- Momentum Chart -->
+<section class="px-4 py-2">
+<h2 class="font-display font-semibold text-sm uppercase tracking-wide text-muted mb-3">Match Momentum</h2>
+<div class="bg-white border border-border-std rounded-sm p-4 h-48 flex flex-col justify-end">
+<div class="flex items-end justify-between h-full gap-1 w-full">
+<!-- 0-15 -->
+<div class="w-full bg-gray-200 h-[30%] rounded-sm relative group"></div>
+<div class="w-full bg-blueprint h-[55%] rounded-sm relative group"></div>
+<!-- 15-30 -->
+<div class="w-full bg-blueprint h-[40%] rounded-sm relative group"></div>
+<div class="w-full bg-gray-200 h-[20%] rounded-sm relative group"></div>
+<!-- 30-45 -->
+<div class="w-full bg-blueprint h-[70%] rounded-sm relative group"></div>
+<div class="w-full bg-gray-200 h-[10%] rounded-sm relative group"></div>
+<!-- 45-60 -->
+<div class="w-full bg-gray-200 h-[60%] rounded-sm relative group"></div>
+<div class="w-full bg-blueprint h-[25%] rounded-sm relative group"></div>
+<!-- 60-75 (Current) -->
+<div class="w-full bg-blueprint h-[85%] rounded-sm relative group animate-pulse">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-ink text-white text-[10px] font-mono py-0.5 px-1.5 rounded-sm whitespace-nowrap opacity-100">
+                            High Press
+                        </div>
+</div>
+</div>
+<div class="flex justify-between mt-2 pt-2 border-t border-border-std w-full text-[10px] font-mono text-muted">
+<span>0'</span>
+<span>15'</span>
+<span>30'</span>
+<span>HT</span>
+<span>60'</span>
+<span>75'</span>
+<span>90'</span>
+</div>
+</div>
+</section>
+<!-- Key Stats Comparison -->
+<section class="px-4 py-6">
+<h2 class="font-display font-semibold text-sm uppercase tracking-wide text-muted mb-4">Live Statistics</h2>
+<div class="bg-white border border-border-std rounded-sm p-4 flex flex-col gap-5">
+<!-- Stat Row 1: Possession -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between text-xs font-display uppercase tracking-wide text-muted mb-1">
+<span>Possession</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="font-mono text-sm font-bold w-8 text-right text-blueprint">45%</span>
+<div class="flex-1 h-2 bg-paper rounded-sm overflow-hidden flex">
+<div class="h-full bg-blueprint" style="width: 45%"></div>
+<div class="h-full bg-muted opacity-30" style="width: 55%"></div>
+</div>
+<span class="font-mono text-sm font-bold w-8 text-left text-ink">55%</span>
+</div>
+</div>
+<!-- Stat Row 2: xG -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between text-xs font-display uppercase tracking-wide text-muted mb-1">
+<span>Expected Goals (xG)</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="font-mono text-sm font-bold w-8 text-right text-blueprint">1.82</span>
+<div class="flex-1 h-2 bg-paper rounded-sm overflow-hidden flex">
+<!-- Using relative widths for comparison -->
+<div class="h-full bg-blueprint" style="width: 65%"></div>
+<div class="h-full bg-muted opacity-30" style="width: 35%"></div>
+</div>
+<span class="font-mono text-sm font-bold w-8 text-left text-ink">0.95</span>
+</div>
+</div>
+<!-- Stat Row 3: Shots on Target -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between text-xs font-display uppercase tracking-wide text-muted mb-1">
+<span>Shots on Target</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="font-mono text-sm font-bold w-8 text-right text-blueprint">6</span>
+<div class="flex-1 h-2 bg-paper rounded-sm overflow-hidden flex">
+<div class="h-full bg-blueprint" style="width: 66%"></div>
+<div class="h-full bg-muted opacity-30" style="width: 33%"></div>
+</div>
+<span class="font-mono text-sm font-bold w-8 text-left text-ink">3</span>
+</div>
+</div>
+<!-- Stat Row 4: Passes -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between text-xs font-display uppercase tracking-wide text-muted mb-1">
+<span>Passes Completed</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="font-mono text-sm font-bold w-8 text-right text-blueprint">312</span>
+<div class="flex-1 h-2 bg-paper rounded-sm overflow-hidden flex">
+<div class="h-full bg-blueprint" style="width: 42%"></div>
+<div class="h-full bg-muted opacity-30" style="width: 58%"></div>
+</div>
+<span class="font-mono text-sm font-bold w-8 text-left text-ink">408</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Formation / Lineups List Preview -->
+<section class="px-4 pb-6">
+<div class="flex justify-between items-center mb-3">
+<h2 class="font-display font-semibold text-sm uppercase tracking-wide text-muted">On The Pitch</h2>
+<button class="text-[10px] font-mono text-blueprint uppercase underline">View Subs</button>
+</div>
+<div class="bg-white border border-border-std rounded-sm overflow-hidden">
+<!-- Header -->
+<div class="flex bg-paper border-b border-border-std py-2 px-4">
+<div class="flex-1 text-[10px] font-mono text-muted uppercase">Home (MAR)</div>
+<div class="flex-1 text-[10px] font-mono text-muted uppercase text-right">Away (POR)</div>
+</div>
+<div class="flex divide-x divide-border-std">
+<!-- Home List -->
+<div class="flex-1 p-2 space-y-3">
+<div class="flex items-center gap-2">
+<span class="font-mono text-xs text-muted w-4">01</span>
+<span class="font-display text-sm font-medium">Gerson Dida</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-mono text-xs text-muted w-4">04</span>
+<span class="font-display text-sm font-medium">Sandro</span>
+<span class="material-symbols-outlined text-[14px] text-success" title="Goal">sports_soccer</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-mono text-xs text-muted w-4">09</span>
+<span class="font-display text-sm font-medium">Pablo Thomaz</span>
+<span class="material-symbols-outlined text-[14px] text-success" title="Goal">sports_soccer</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-mono text-xs text-muted w-4">10</span>
+<span class="font-display text-sm font-medium">Clodoaldo</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-mono text-xs text-muted w-4">05</span>
+<span class="font-display text-sm font-medium">Walber</span>
+<span class="material-symbols-outlined text-[14px] text-yellow-500" title="Yellow Card">style</span>
+</div>
+</div>
+<!-- Away List -->
+<div class="flex-1 p-2 space-y-3">
+<div class="flex items-center justify-end gap-2 text-right">
+<span class="font-display text-sm font-medium">Bruno</span>
+<span class="font-mono text-xs text-muted w-4">01</span>
+</div>
+<div class="flex items-center justify-end gap-2 text-right">
+<span class="font-display text-sm font-medium">Michel</span>
+<span class="font-mono text-xs text-muted w-4">04</span>
+</div>
+<div class="flex items-center justify-end gap-2 text-right">
+<span class="font-display text-sm font-medium">Hernane</span>
+<span class="material-symbols-outlined text-[14px] text-success" title="Goal">sports_soccer</span>
+<span class="font-mono text-xs text-muted w-4">09</span>
+</div>
+<div class="flex items-center justify-end gap-2 text-right">
+<span class="font-display text-sm font-medium">Lucas</span>
+<span class="font-mono text-xs text-muted w-4">07</span>
+</div>
+<div class="flex items-center justify-end gap-2 text-right">
+<span class="material-symbols-outlined text-[14px] text-yellow-500" title="Yellow Card">style</span>
+<span class="font-display text-sm font-medium">Romarinho</span>
+<span class="font-mono text-xs text-muted w-4">11</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar (Contextual) -->
+<nav class="fixed bottom-0 w-full bg-white border-t border-border-std flex justify-between items-center px-6 py-3 z-50">
+<a class="flex flex-col items-center gap-1 group" href="#">
+<span class="material-symbols-outlined text-muted group-hover:text-ink transition-colors text-[24px]">dashboard</span>
+<span class="text-[10px] font-mono text-muted uppercase tracking-widest group-hover:text-ink">Dash</span>
+</a>
+<a class="flex flex-col items-center gap-1 group" href="#">
+<span class="material-symbols-outlined text-blueprint transition-colors text-[24px]">query_stats</span>
+<span class="text-[10px] font-mono text-blueprint uppercase tracking-widest font-bold">Match</span>
+</a>
+<a class="flex flex-col items-center gap-1 group" href="#">
+<span class="material-symbols-outlined text-muted group-hover:text-ink transition-colors text-[24px]">groups</span>
+<span class="text-[10px] font-mono text-muted uppercase tracking-widest group-hover:text-ink">Squad</span>
+</a>
+<a class="flex flex-col items-center gap-1 group" href="#">
+<span class="material-symbols-outlined text-muted group-hover:text-ink transition-colors text-[24px]">calendar_month</span>
+<span class="text-[10px] font-mono text-muted uppercase tracking-widest group-hover:text-ink">Log</span>
+</a>
+<a class="flex flex-col items-center gap-1 group" href="#">
+<span class="material-symbols-outlined text-muted group-hover:text-ink transition-colors text-[24px]">wallet</span>
+<span class="text-[10px] font-mono text-muted uppercase tracking-widest group-hover:text-ink">Pass</span>
+</a>
+</nav>
+</body></html>

@@ -1,0 +1,49 @@
+{
+  "expo": {
+    "name": "Maricá F.C.",
+    "slug": "marica-fc-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/escudo-redondo-04.png",
+    "userInterfaceStyle": "light",
+    "backgroundColor": "#F4F4F0",
+    "splash": {
+      "backgroundColor": "#F4F4F0",
+      "image": "./assets/images/escudo-redondo-04.png",
+      "resizeMode": "contain"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "android": {
+      "package": "marica.futebol.clube",
+      "usesCleartextTraffic": true,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/escudo-redondo-04.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "splash": {
+        "backgroundColor": "#F4F4F0",
+        "image": "./assets/images/escudo-redondo-04.png"
+      }
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "marica.futebol.clube"
+    },
+    "scheme": "maricafc",
+    "plugins": [
+      "expo-secure-store",
+      "expo-router"
+    ],
+    "web": {
+      "bundler": "metro",
+      "output": "static"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "85302f84-ad35-4a0b-b701-cf3ef6266c79"
+      }
+    }
+  }
+}

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>O Estrategista - Access Control</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#002147", /* Maricá Navy */
+                        "accent": "#C41E3A", /* Maricá Red */
+                        "ink": "#1A1A1A", 
+                        "paper": "#F4F4F0", 
+                        "muted": "#858580", 
+                        "alert": "#C41E3A",
+                        "success": "#00B060",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"],
+                    },
+                    backgroundImage: {
+                        'noise': "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22 opacity=%220.05%22/%3E%3C/svg%3E')",
+                    },
+                    boxShadow: {
+                        'flat': '0 1px 0 0 rgba(0,0,0,0.05)',
+                    }
+                },
+            },
+        }</script>
+<style>
+        body {
+            background-color: #F4F4F0;
+            color: #1A1A1A;
+        }
+        /* Custom scrollbar for clean look */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 2px;
+        }
+        .barcode-strip {
+            background-image: repeating-linear-gradient(90deg, 
+                currentColor 0, 
+                currentColor 2px, 
+                transparent 2px, 
+                transparent 4px,
+                currentColor 4px,
+                currentColor 5px,
+                transparent 5px,
+                transparent 8px
+            );
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="font-body min-h-screen flex flex-col items-center justify-start antialiased selection:bg-primary/20 selection:text-primary pb-24">
+<!-- Header -->
+<header class="w-full max-w-md px-5 pt-8 pb-4 flex items-center justify-between sticky top-0 z-10 bg-paper/95 backdrop-blur-sm border-b border-[#E5E5E0]">
+<div class="flex items-center gap-3">
+<button class="flex items-center justify-center size-10 rounded border border-[#E5E5E0] bg-white text-ink hover:bg-gray-50 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[20px]">arrow_back</span>
+</button>
+<div>
+<h1 class="font-display font-bold text-lg leading-tight tracking-tight uppercase text-ink">MARICÁ FC ACCESS</h1>
+<div class="flex items-center gap-1.5">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-success opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-success"></span>
+</span>
+<span class="font-mono text-[10px] text-muted tracking-wider uppercase">Live Connection</span>
+</div>
+</div>
+</div>
+<button class="flex items-center justify-center size-10 rounded border border-[#E5E5E0] bg-white text-ink hover:text-primary active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[20px]">brightness_7</span> <!-- Brightness icon implies screen boost -->
+</button>
+</header>
+<!-- Main Content Area -->
+<main class="w-full max-w-md px-5 pt-6 flex flex-col gap-6">
+<!-- MEMBER ID CARD STACK -->
+<section class="relative group perspective-1000">
+<!-- Back Card (Decoration) -->
+<div class="absolute top-2 left-2 right-[-8px] bottom-[-8px] bg-ink/5 rounded-[8px] border border-ink/10 -z-10"></div>
+<!-- Main ID Card -->
+<div class="relative w-full bg-white rounded-[8px] overflow-hidden border border-[#E5E5E0] shadow-sm">
+<!-- Noise Texture Overlay -->
+<div class="absolute inset-0 bg-noise opacity-50 pointer-events-none z-0"></div>
+<!-- Card Header -->
+<div class="relative z-10 flex justify-between items-start p-5 border-b border-dashed border-[#E5E5E0]">
+<div>
+<p class="font-mono text-xs text-muted mb-1">MEMBER ID</p>
+<p class="font-display font-bold text-xl uppercase tracking-tight text-ink">Alexandre Silva</p>
+</div>
+<div class="bg-primary/10 border border-primary/20 px-2 py-1 rounded-[2px]">
+<p class="font-display font-bold text-xs text-primary tracking-widest uppercase">Ultras Tier</p>
+</div>
+</div>
+<!-- QR Code Section -->
+<div class="relative z-10 flex flex-col items-center justify-center py-8 bg-white">
+<div class="p-3 bg-white border border-[#E5E5E0] rounded-[4px]">
+<!-- QR Code Placeholder -->
+<img alt="Member Access QR Code" class="size-48 rendering-pixelated mix-blend-multiply" data-alt="High contrast QR code for stadium entry scanning" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDspjLWAkXCSv8yZl6Sb5TPThLzUCW6GYLgVvdLFM3yz7B5_WA1u3LKUra9MBF9mqsP3fORAFVTF1B8ByG9jlSW0qHxDcagXu8CIwahamePBeTpfzqmskX4Flf8R_Cyjbm7vPOIPmKrHSnWrpaFdjuqVqzXELOsmw1WoKA2mWQaz6UdojcLlV8Bs46YJGi9ZX7sf87fjkVZhD_6Am7IvVkojcCWjnPjg0r5H3BmEdK2p1S1g3DhHUOnPyFnmWKVpPYTuOITJD0m7N-_"/>
+</div>
+<p class="mt-4 font-mono text-xs text-muted tracking-widest">SCAN AT TURNSTILE</p>
+</div>
+<!-- Card Footer / Metadata -->
+<div class="relative z-10 bg-gray-50 p-4 border-t border-[#E5E5E0] flex justify-between items-center">
+<div>
+<p class="font-mono text-[10px] text-muted uppercase">Member Since</p>
+<p class="font-mono text-sm font-medium text-ink">2018</p>
+</div>
+<div class="text-right">
+<p class="font-mono text-[10px] text-muted uppercase">Unique ID</p>
+<p class="font-mono text-sm font-medium text-ink tracking-tight">MEM-8894-X</p>
+</div>
+</div>
+<!-- Watermark Logo (Abstract) -->
+<div class="absolute -bottom-10 -right-10 opacity-[0.03] pointer-events-none">
+<span class="material-symbols-outlined text-[200px]">shield</span>
+</div>
+</div>
+</section>
+<!-- WALLET ROW -->
+<section class="flex items-center justify-between bg-white border border-[#E5E5E0] p-4 rounded-[2px]">
+<div class="flex flex-col gap-0.5">
+<span class="font-mono text-[10px] uppercase text-muted tracking-wider">Stadium Credit</span>
+<span class="font-mono text-lg font-medium text-ink">€45.00</span>
+</div>
+<button class="h-9 px-4 flex items-center gap-2 border border-primary text-primary font-display font-semibold text-xs uppercase tracking-wider hover:bg-primary hover:text-white transition-colors rounded-[2px]">
+<span class="material-symbols-outlined text-base">add</span>
+                Top Up
+            </button>
+</section>
+<!-- TICKET STUB -->
+<section class="flex flex-col">
+<div class="flex justify-between items-baseline mb-3">
+<h2 class="font-display font-bold text-sm uppercase text-muted tracking-widest">Active Ticket</h2>
+<span class="font-mono text-[10px] text-alert animate-pulse">GATE CLOSES 19:45</span>
+</div>
+<!-- Ticket Container -->
+<div class="w-full bg-white border border-[#E5E5E0] rounded-[2px] overflow-hidden flex flex-col relative">
+<!-- Left Accent Border -->
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary z-10"></div>
+<!-- Match Info Top -->
+<div class="p-5 pl-7 pb-4 flex justify-between items-start">
+<div class="flex flex-col">
+<span class="font-mono text-[10px] text-muted uppercase mb-1">Campeonato Carioca • Round 5</span>
+<div class="flex items-center gap-2 mb-1">
+<h3 class="font-display font-bold text-xl uppercase text-ink">Sampaio Corrêa</h3>
+</div>
+<span class="font-mono text-xs text-ink bg-gray-100 px-1.5 py-0.5 self-start rounded-[2px]">21 NOV • 15:00</span>
+</div>
+<div class="size-10 rounded-full border border-[#E5E5E0] flex items-center justify-center text-muted">
+<!-- Opponent Logo Placeholder -->
+<span class="material-symbols-outlined">sports_soccer</span>
+</div>
+</div>
+<!-- Perforated Line Visual -->
+<div class="relative h-px w-full my-1">
+<div class="absolute left-0 w-full h-full border-t border-dashed border-gray-300"></div>
+<div class="absolute -left-1.5 -top-1.5 size-3 bg-paper rounded-full border-r border-[#E5E5E0]"></div>
+<div class="absolute -right-1.5 -top-1.5 size-3 bg-paper rounded-full border-l border-[#E5E5E0]"></div>
+</div>
+<!-- Seat Location (Big Typography) -->
+<div class="p-5 pl-7 pt-4 grid grid-cols-3 gap-4">
+<div class="flex flex-col">
+<span class="font-mono text-[10px] text-muted uppercase mb-1">Campeonato Carioca • Round 5</span>
+<span class="font-display font-bold text-3xl text-ink">G4</span>
+</div>
+<div class="flex flex-col border-l border-[#E5E5E0] pl-4">
+<span class="font-mono text-[10px] text-muted uppercase mb-1">Campeonato Carioca • Round 5</span>
+<span class="font-display font-bold text-3xl text-ink">12</span>
+</div>
+<div class="flex flex-col border-l border-[#E5E5E0] pl-4">
+<span class="font-mono text-[10px] text-muted uppercase mb-1">Campeonato Carioca • Round 5</span>
+<span class="font-display font-bold text-3xl text-ink">45</span>
+</div>
+</div>
+<!-- Barcode Decoration Bottom -->
+<div class="h-3 w-full opacity-20 barcode-strip text-ink mt-2 mb-1"></div>
+</div>
+</section>
+<!-- Helpful Tip -->
+<div class="flex gap-3 items-start p-3 bg-primary/5 border border-primary/10 rounded-[2px]">
+<span class="material-symbols-outlined text-primary text-sm mt-0.5">info</span>
+<p class="font-body text-xs text-muted leading-relaxed">
+<span class="text-ink font-medium">NFC Entry Enabled.</span> Hold your phone near the reader if the scanner has trouble reading the QR code.
+            </p>
+</div>
+</main>
+<!-- Bottom Navigation -->
+<nav class="fixed bottom-0 left-0 w-full bg-white/95 backdrop-blur border-t border-[#E5E5E0] z-50 pb-safe">
+<div class="flex justify-between items-center max-w-md mx-auto px-2 pt-2 pb-4">
+<a class="flex-1 flex flex-col items-center gap-1 p-2 text-muted hover:text-ink transition-colors group" href="#">
+<span class="material-symbols-outlined text-[24px] group-hover:-translate-y-0.5 transition-transform">dashboard</span>
+<span class="text-[10px] font-medium tracking-wide">TACTICAL</span>
+</a>
+<a class="flex-1 flex flex-col items-center gap-1 p-2 text-muted hover:text-ink transition-colors group" href="#">
+<span class="material-symbols-outlined text-[24px] group-hover:-translate-y-0.5 transition-transform">query_stats</span>
+<span class="text-[10px] font-medium tracking-wide">INTEL</span>
+</a>
+<a class="flex-1 flex flex-col items-center gap-1 p-2 text-muted hover:text-ink transition-colors group" href="#">
+<span class="material-symbols-outlined text-[24px] group-hover:-translate-y-0.5 transition-transform">groups</span>
+<span class="text-[10px] font-medium tracking-wide">SQUAD</span>
+</a>
+<a class="flex-1 flex flex-col items-center gap-1 p-2 text-muted hover:text-ink transition-colors group" href="#">
+<span class="material-symbols-outlined text-[24px] group-hover:-translate-y-0.5 transition-transform">calendar_month</span>
+<span class="text-[10px] font-medium tracking-wide">LOG</span>
+</a>
+<a class="flex-1 flex flex-col items-center gap-1 p-2 text-ink transition-colors" href="#">
+<div class="relative">
+<span class="material-symbols-outlined text-[24px] font-variation-settings-fill">confirmation_number</span>
+<span class="absolute top-0 right-0 size-2 rounded-full bg-accent"></span>
+</div>
+<span class="text-[10px] font-bold tracking-wide">ACCESS</span>
+</a>
+</div>
+</nav>
+<!-- Global Floating Action Button (FAB) emulation if needed, but nav bar handles main nav. 
+         The prompt mentioned a FAB for entry, which effectively leads here. 
+         Since we are ON the screen, we don't need the entry FAB, but maybe a 'Close' if it was modal. 
+         Given it's a full screen view as per request, standard nav applies. -->
+</body></html>

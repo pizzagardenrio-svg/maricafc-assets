@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&amp;display=swap" rel="stylesheet"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Player Profile | Pablo Thomaz</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "primary": "#135bec",
+                "background-light": "#f6f6f8",
+                "background-dark": "#101622",
+              },
+              fontFamily: {
+                "display": ["Space Grotesk"]
+              },
+              borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+            },
+          },
+        }
+      </script>
+<style>
+        .stats-grid {
+            background-image: radial-gradient(circle at 1px 1px, #135bec10 1px, transparent 0);
+            background-size: 20px 20px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+<div class="max-w-7xl mx-auto px-4 py-8 md:py-12">
+<header class="flex flex-col md:flex-row items-start md:items-end gap-6 mb-12 border-b border-primary/10 pb-8">
+<div class="relative group">
+<div class="w-48 h-64 bg-slate-200 dark:bg-slate-800 rounded-lg overflow-hidden border border-primary/20">
+<img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" data-alt="Professional portrait of football player Pablo Thomaz" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAChUQ7E8ULOnlkCRMpbwHAGjEbwaPaCLE214g8Rzaa8PikQyifPRc0QLwk7r9w2sAYyd75QFuaI0xPhl08RhPFyXC7tXDZ0u2913oPC2KAoPgz7EgQSvCwgN9VqjuwttTiUujpcdkFUdNL32WzeM0OIOD8tcXtxh9TLX3qhrgDvepOo833b8F3ISJkQCrvhE_o9psEyCVTv0vZM4bR930hJ3oWIeJMKvH9Y_H7K-xUAU3wwj6_lNvTgIj5hsMzPdYF4khRYD1eupLs"/>
+</div>
+<div class="absolute -bottom-4 -right-4 bg-primary text-white text-4xl font-bold p-4 rounded-lg shadow-xl">
+                    09
+                </div>
+</div>
+<div class="flex-1 space-y-2">
+<div class="flex items-center gap-3">
+<span class="px-3 py-1 bg-primary/10 text-primary text-sm font-semibold tracking-wider rounded uppercase border border-primary/20">Striker (ST)</span>
+<span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 text-sm font-semibold tracking-wider rounded border border-slate-200 dark:border-slate-700 uppercase">Maricá FC</span>
+</div>
+<h1 class="text-5xl md:text-7xl font-bold tracking-tighter uppercase italic">Pablo Thomaz</h1>
+<div class="flex flex-wrap items-center gap-6 pt-4 text-sm font-medium opacity-80 uppercase tracking-widest">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-base">calendar_today</span>
+                        24 Years Old
+                    </div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-base">height</span>
+                        1.82m
+                    </div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-base">sports_soccer</span>
+                        Right Footed
+                    </div>
+</div>
+</div>
+<div class="flex flex-col items-end gap-2 border-l border-primary/10 pl-8">
+<span class="text-xs font-semibold text-slate-500 uppercase tracking-widest">Market Value</span>
+<span class="text-3xl font-bold text-primary">€1.25M</span>
+<div class="flex items-center gap-1 text-green-500 text-xs font-bold bg-green-500/10 px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+                    +15%
+                </div>
+</div>
+</header>
+<main class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<section class="lg:col-span-8 space-y-8">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-1"><div class="bg-white dark:bg-slate-900 p-6 border border-slate-200 dark:border-slate-800">
+<span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Total Goals</span>
+<div class="text-5xl font-bold mt-2 text-slate-900 dark:text-white" style="font-family: 'JetBrains Mono', monospace;">14</div>
+<div class="mt-4 h-1 w-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
+<div class="h-full w-[85%]" style="background-color: #0057FF;"></div>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900 p-6 border border-slate-200 dark:border-slate-800">
+<span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Shot Accuracy</span>
+<div class="text-5xl font-bold mt-2 text-slate-900 dark:text-white" style="font-family: 'JetBrains Mono', monospace;">65%</div>
+<div class="mt-4 h-1 w-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
+<div class="h-full w-[65%]" style="background-color: #0057FF;"></div>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900 p-6 border border-slate-200 dark:border-slate-800">
+<span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Conversion Rate</span>
+<div class="text-5xl font-bold mt-2 text-slate-900 dark:text-white" style="font-family: 'JetBrains Mono', monospace;">22%</div>
+<div class="mt-4 h-1 w-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
+<div class="h-full w-[22%]" style="background-color: #0057FF;"></div>
+</div>
+</div></div>
+<div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-8 stats-grid">
+<h2 class="text-xl font-bold mb-8 flex items-center gap-3 uppercase italic">
+<span class="w-8 h-1 bg-primary"></span>
+                        Performance Metrics
+                    </h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
+<div class="space-y-2">
+<div class="flex justify-between text-sm font-bold uppercase tracking-tight">
+<span>Attacking Positioning</span>
+<span class="text-primary">88</span>
+</div>
+<div class="h-1 bg-slate-100 dark:bg-slate-800 rounded-full">
+<div class="h-full bg-primary w-[88%] rounded-full"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-sm font-bold uppercase tracking-tight">
+<span>Finishing</span>
+<span class="text-primary">92</span>
+</div>
+<div class="h-1 bg-slate-100 dark:bg-slate-800 rounded-full">
+<div class="h-full bg-primary w-[92%] rounded-full"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-sm font-bold uppercase tracking-tight">
+<span>Aerial Threat</span>
+<span class="text-primary">76</span>
+</div>
+<div class="h-1 bg-slate-100 dark:bg-slate-800 rounded-full">
+<div class="h-full bg-primary w-[76%] rounded-full"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-sm font-bold uppercase tracking-tight">
+<span>Sprint Speed</span>
+<span class="text-primary">84</span>
+</div>
+<div class="h-1 bg-slate-100 dark:bg-slate-800 rounded-full">
+<div class="h-full bg-primary w-[84%] rounded-full"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-sm font-bold uppercase tracking-tight">
+<span>Ball Control</span>
+<span class="text-primary">81</span>
+</div>
+<div class="h-1 bg-slate-100 dark:bg-slate-800 rounded-full">
+<div class="h-full bg-primary w-[81%] rounded-full"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-sm font-bold uppercase tracking-tight">
+<span>Work Rate</span>
+<span class="text-primary">89</span>
+</div>
+<div class="h-1 bg-slate-100 dark:bg-slate-800 rounded-full">
+<div class="h-full bg-primary w-[89%] rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-8">
+<h2 class="text-xl font-bold mb-6 uppercase italic">Technical Style</h2>
+<p class="text-slate-600 dark:text-slate-400 leading-relaxed font-light">
+                        Thomaz operates as a high-intensity <span class="text-primary font-medium">Advanced Forward</span>, specializing in blind-side runs and clinical first-touch finishing. His movement pattern often involves dragging center-backs out of position to create pockets for late-arriving midfielders. In the defensive phase, he acts as the first line of the press, maintaining a high volume of defensive actions in the final third.
+                    </p>
+<div class="flex flex-wrap gap-2 mt-6">
+<span class="px-4 py-2 border border-slate-200 dark:border-slate-800 text-xs font-bold uppercase tracking-widest rounded-full">Poacher</span>
+<span class="px-4 py-2 border border-slate-200 dark:border-slate-800 text-xs font-bold uppercase tracking-widest rounded-full">Pressing Forward</span>
+<span class="px-4 py-2 border border-slate-200 dark:border-slate-800 text-xs font-bold uppercase tracking-widest rounded-full">Target Man (Soft)</span>
+</div>
+</div>
+</section>
+<aside class="lg:col-span-4 space-y-8">
+<div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6">
+<h2 class="text-sm font-bold mb-6 uppercase tracking-[0.2em] border-l-4 border-primary pl-4">Season Heatmap</h2>
+<div class="relative aspect-[3/4] bg-slate-100 dark:bg-slate-800 rounded overflow-hidden">
+<img class="w-full h-full object-cover opacity-80" data-alt="Football pitch heatmap showing intense activity in the opposition penalty area" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCA7jwsGTXz7WTfmTUSuMf_AGSj8k29HA4V3ZOUE6M1enEFyepvf2PIy_qdWYkapCVzkLv_J5rD2j2g4dIh51K9nbYflOkXcuxPCNVD7n411SgxgLMqrs1S28Rz2u1-Zzyutn7Ojtv2moPxYjFbdH2qOeTRqMRu61AUEo6-kkzXn7ZhbhJVC83hurXMS2MiizYBOaudEOcCGVkrwJKWTAtnbfoYbv6itoE1bFWKRXa7xYdMFI81Jt-d0CUKuX4eer4bV-NGaQGiLvde"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark/20 to-transparent"></div>
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-primary/20 rounded-full blur-xl"></div>
+<div class="absolute top-[20%] left-1/2 -translate-x-1/2 w-24 h-32 bg-primary/40 rounded-full blur-2xl"></div>
+</div>
+<p class="text-[10px] text-slate-500 mt-4 uppercase tracking-tighter text-center">Concentrated activity in the central final third and right channel.</p>
+</div>
+<div class="bg-primary p-8 text-white space-y-6">
+<h2 class="text-sm font-bold uppercase tracking-[0.2em]">Match Summary</h2>
+<div class="space-y-4">
+<div class="flex justify-between border-b border-white/10 pb-2">
+<span class="text-xs opacity-60 uppercase font-medium">Apps</span>
+<span class="font-bold">24</span>
+</div>
+<div class="flex justify-between border-b border-white/10 pb-2">
+<span class="text-xs opacity-60 uppercase font-medium">Assists</span>
+<span class="font-bold">4</span>
+</div>
+<div class="flex justify-between border-b border-white/10 pb-2">
+<span class="text-xs opacity-60 uppercase font-medium">Yellow Cards</span>
+<span class="font-bold">3</span>
+</div>
+<div class="flex justify-between border-b border-white/10 pb-2">
+<span class="text-xs opacity-60 uppercase font-medium">Minutes per Goal</span>
+<span class="font-bold">142'</span>
+</div>
+</div>
+<button class="w-full py-3 bg-white text-primary font-bold uppercase text-xs tracking-[0.2em] hover:bg-opacity-90 transition-colors">
+                        Download Full Report
+                    </button>
+</div>
+<div class="border border-primary/10 p-6 flex items-center justify-between">
+<div>
+<div class="text-xs font-bold uppercase text-slate-400">Current Form</div>
+<div class="flex gap-1 mt-2">
+<div class="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center text-[10px] font-bold text-white">W</div>
+<div class="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center text-[10px] font-bold text-white">W</div>
+<div class="w-6 h-6 rounded-full bg-slate-300 dark:bg-slate-700 flex items-center justify-center text-[10px] font-bold text-white">D</div>
+<div class="w-6 h-6 rounded-full bg-primary flex items-center justify-center text-[10px] font-bold text-white">G</div>
+<div class="w-6 h-6 rounded-full bg-primary flex items-center justify-center text-[10px] font-bold text-white">G</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-primary/40 text-4xl">analytics</span>
+</div>
+</aside>
+</main>
+<footer class="mt-16 pt-8 border-t border-slate-200 dark:border-slate-800 text-center">
+<div class="flex justify-center gap-8 mb-4">
+<img class="h-10 opacity-50 grayscale" data-alt="Maricá FC official club logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZggU7PZOh5obl_qDuNaXzYFHplopiGO7YlAdRdYK9TG705FkuWsQSZWFaP00xiRh55Tj7pt9AvzoMtJSthb9rvRxSfmVW9ZLh8aRcLvng3SRfs7CiRcXMF-0L75cp8pUwoEvYe37ZhvfaU1PjgB_X4ZyCLU1J8_bNp0WHPeEhEGjFLIrT03aogSx_fwvAWh88uS-nmFdO78gsKTYH7rtWJK6YSRXQVGo9ijC3n50QFYg4b8a11N271_Eh178GzMHB1Zq_qsADNuhj"/>
+</div>
+<p class="text-[10px] uppercase tracking-widest text-slate-400">© 2024 scouting dashboard / o estrategista system v.5.0</p>
+</footer>
+</div>
+</body></html>

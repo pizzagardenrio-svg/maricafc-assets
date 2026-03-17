@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-br"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ec5b13",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#221610",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+<!-- Main Container -->
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Header -->
+<div class="sticky top-0 z-50 flex items-center bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md px-4 py-4 border-b border-slate-200 dark:border-slate-800 justify-between">
+<div class="flex size-10 shrink-0 items-center justify-center rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-slate-900 dark:text-slate-100">arrow_back</span>
+</div>
+<h2 class="text-slate-900 dark:text-slate-100 text-lg font-bold leading-tight tracking-tight flex-1 text-center">Diretoria</h2>
+<div class="flex w-10 items-center justify-end">
+<button class="flex items-center justify-center rounded-full size-10 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined text-slate-900 dark:text-slate-100">info</span>
+</button>
+</div>
+</div>
+<!-- Hero Section / Club Identity -->
+<div class="px-4 pt-6 pb-2">
+<div class="relative overflow-hidden rounded-xl bg-primary/10 dark:bg-primary/5 p-6 border border-primary/20">
+<div class="flex items-center gap-4">
+<div class="size-16 rounded-full bg-white dark:bg-slate-800 flex items-center justify-center p-2 shadow-sm border border-slate-100 dark:border-slate-700">
+<img class="w-full h-full object-contain" data-alt="Maricá FC official club crest" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhgVXQ7Q7CRHtJObxpguhxYjzw2HMNE_hHi0plejybDa2xx8Iov4MbJ3Vw1ZMVtMk9Xc6p7-sXFn_o22YLas91itvAFLorTCDF9h4k8PlwlWQYqSenhjnzrgS7U_RhRQB5OJ7egB8yjBPTmRcBL0pzk8FmPj-SvMSoexO78euYmc48hVZ3pYPZ8t0PkWq7ET5VPb_rmtd085X_QIsFxeFlmxekKzvD4LVxgqohHmS5Fhb26LFVbZ5o01oWOnbZSv0995D30HIB_-_n"/>
+</div>
+<div>
+<h1 class="text-2xl font-extrabold text-primary uppercase tracking-tighter">Maricá FC</h1>
+<p class="text-sm font-medium text-slate-600 dark:text-slate-400">Gestão 2023-2025</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Section: Conselho Executivo -->
+<div class="px-4 pt-6 pb-2">
+<h3 class="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-widest mb-4 px-1">Conselho Executivo</h3>
+<div class="flex flex-col gap-px bg-slate-200 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
+<!-- Member 1 -->
+<div class="flex items-center gap-4 bg-background-light dark:bg-background-dark px-4 py-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group">
+<div class="relative">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-14 w-14 ring-2 ring-primary/20" data-alt="Portrait of Douglas Oliveira Presidente" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBOr8mDocLGdSICCoAHlFIaXwJLjGI9JOGRcbIaxP9HElrx90d1dQ_tjqgDTCjbre37I0HbsgIX7BwMRUSKezpfoYP_-m26MBHkxdeOs9CcZVLfH4UEy_oX9nbl_Vw-eACoPxcUGPe9f_7e2_jKjNinsHkuB6jnAfThM01yeCwpFpemz0aP9rV-0RyHsWm5DUQz5J8uq15of7BKnoMDulL8b3mNSijrpb_BK2KNvhT3lMmteaweOBPuqNaUM_9uMUi_mRj_1x2r1is9");'></div>
+<div class="absolute -bottom-1 -right-1 bg-primary text-white text-[10px] px-1.5 py-0.5 rounded-full font-bold">PR</div>
+</div>
+<div class="flex flex-col flex-1">
+<p class="text-slate-900 dark:text-slate-100 text-base font-bold leading-none mb-1">Douglas Oliveira</p>
+<p class="text-primary text-sm font-semibold leading-normal uppercase text-[11px] tracking-wider">Presidente</p>
+</div>
+<span class="material-symbols-outlined text-slate-300 dark:text-slate-600 group-hover:text-primary transition-colors">chevron_right</span>
+</div>
+<!-- Member 2 -->
+<div class="flex items-center gap-4 bg-background-light dark:bg-background-dark px-4 py-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group">
+<div class="relative">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-14 w-14 ring-2 ring-primary/20" data-alt="Portrait of Rodrigo Costa Vice-Presidente" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDpwKha5IusXdaHCnlYVPDwUZzrElP5Chi4Lhx5tUYSAkkcJ3R7QI3bhcJfbGZEh9m7wmEdyDHS8oxb6FfMRLuNzuUJgZ1DuhfL2rJF_vec0b0s28ECD0ZMyzIn57ClYe-VlVXiUdmcS3Pe0vqkxnJD17BhJWoplBTurGAvX83b2nIVz1Bu6ffAEb3fVFQxoKKvJ-nhL4qSmZZr2Y3sCm9_WKSj8gZe9pTU37o9UH2F38S5k5SQqmcZM3IyiSrZOhNfK4C2e2_wG_Cq");'></div>
+</div>
+<div class="flex flex-col flex-1">
+<p class="text-slate-900 dark:text-slate-100 text-base font-bold leading-none mb-1">Rodrigo Costa</p>
+<p class="text-primary text-sm font-semibold leading-normal uppercase text-[11px] tracking-wider">Vice-Presidente</p>
+</div>
+<span class="material-symbols-outlined text-slate-300 dark:text-slate-600 group-hover:text-primary transition-colors">chevron_right</span>
+</div>
+<!-- Member 3 -->
+<div class="flex items-center gap-4 bg-background-light dark:bg-background-dark px-4 py-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group">
+<div class="relative">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-14 w-14 ring-2 ring-primary/20" data-alt="Portrait of Carlos Santos Diretor de Futebol" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDb3tlnHSgy_hdrKJR9ayBVtkupwgOlLeZW5liLKb0GvCKiAc2cts74pywWUEIER39DExUURthtV3_EZbG_XakYS1fZICx0w4Va6RK2oqfBtvvh_5p2ih5Q5-_RjAtdz5eXqW2Jirz1UTXAsFlJTPiq4Q5xwMNIAOlje-TUqhiQxw3faO2Bm67sU-7p7zYHF2dtbxE-npZ7_nW4LGXZUixDagmE_W8g140d-LX4Ww0p3WBNaUPnflBHdukH6x2pjfEnl7fW5otMt1LZ");'></div>
+</div>
+<div class="flex flex-col flex-1">
+<p class="text-slate-900 dark:text-slate-100 text-base font-bold leading-none mb-1">Carlos Santos</p>
+<p class="text-primary text-sm font-semibold leading-normal uppercase text-[11px] tracking-wider">Diretor de Futebol</p>
+</div>
+<span class="material-symbols-outlined text-slate-300 dark:text-slate-600 group-hover:text-primary transition-colors">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- Section: Departamento Técnico -->
+<div class="px-4 pt-6 pb-24">
+<h3 class="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-widest mb-4 px-1">Departamento Técnico</h3>
+<div class="grid grid-cols-2 gap-3">
+<!-- Secondary Card 1 -->
+<div class="bg-background-light dark:bg-background-dark p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col items-center text-center">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-16 w-16 mb-3 ring-2 ring-slate-100 dark:ring-slate-700" data-alt="Portrait of Ricardo Mendes Financeiro" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCapX-Aa2I5iEhFJi8s7vVRRdoFw5wiAnaQtVRtReT-yVrIM6231ImGWizkh4zfVZEK1UGKmXIUcKPEerjijeL-RwyTRO33QCaZuVskQyvlMvAFdmxxPDrtLGkKnCC5QFYNxTIYyLHMv4hBPwdu0eJ_cal1ZB9wJCSxryYQrFF7n8jnX_Gp4-ujYIZhEVz-PTuSAXJcSSXB7ri20L4P74zLI-Slvujj7WDuWzSkD9mpDJhMlVPzIGbIirKxlkws1nH510HjLChy6CVB");'></div>
+<p class="text-slate-900 dark:text-slate-100 text-sm font-bold leading-tight">Ricardo Mendes</p>
+<p class="text-slate-500 text-[10px] font-medium uppercase mt-1">Dir. Financeiro</p>
+</div>
+<!-- Secondary Card 2 -->
+<div class="bg-background-light dark:bg-background-dark p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col items-center text-center">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-16 w-16 mb-3 ring-2 ring-slate-100 dark:ring-slate-700" data-alt="Portrait of Ana Beatriz Comunicação" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDSvvtzXsu-5Zm7pGGLzeas3N1n_IvK42vmNUMt9dom8pvz3WIudLXozlaPgm9mNtyAmaWFcCnY-wlQZkPNcVD958gioRxoyL2tHAQqYMgLF14cEIgPTNOH6UkqwHNr0IQ08lSpF_mUX1cbkEso9kF1eKl5wVH0SVw9A0fBaPoRnkmGcowAVwhlXVVshx-WnE566yRpNStJ59rqmuER9LXj61r0ZSrWb8Vsj1bcAB395oRcTHS7cqOSacnhofzg1iv1LWIG0w75DNSq");'></div>
+<p class="text-slate-900 dark:text-slate-100 text-sm font-bold leading-tight">Ana Beatriz</p>
+<p class="text-slate-500 text-[10px] font-medium uppercase mt-1">Dir. Comunicação</p>
+</div>
+</div>
+</div>
+<!-- Bottom Navigation Bar -->
+<div class="fixed bottom-0 left-0 right-0 z-50 flex border-t border-slate-200 dark:border-slate-800 bg-background-light dark:bg-background-dark px-4 pb-6 pt-3">
+<a class="flex flex-1 flex-col items-center justify-center gap-1 text-slate-400 dark:text-slate-500" href="#">
+<span class="material-symbols-outlined text-[24px]">home</span>
+<p class="text-[10px] font-semibold leading-normal uppercase tracking-wide">Início</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center gap-1 text-slate-400 dark:text-slate-500" href="#">
+<span class="material-symbols-outlined text-[24px]">sports_soccer</span>
+<p class="text-[10px] font-semibold leading-normal uppercase tracking-wide">Jogos</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center gap-1 text-primary" href="#">
+<span class="material-symbols-outlined text-[24px] fill-current">shield</span>
+<p class="text-[10px] font-semibold leading-normal uppercase tracking-wide">Clube</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center gap-1 text-slate-400 dark:text-slate-500" href="#">
+<span class="material-symbols-outlined text-[24px]">play_circle</span>
+<p class="text-[10px] font-semibold leading-normal uppercase tracking-wide">Mídia</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center gap-1 text-slate-400 dark:text-slate-500" href="#">
+<span class="material-symbols-outlined text-[24px]">person</span>
+<p class="text-[10px] font-semibold leading-normal uppercase tracking-wide">Perfil</p>
+</a>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Squadron Manifest - O Estrategista</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#002B5C", 
+                        "paper": "#F4F4F0",
+                        "blueprint": "#EE2B2E",
+                        "muted": "#858580",
+                        "border-std": "#E5E5E0",
+                        "background-light": "#F4F4F0",
+                        "background-dark": "#0A1428",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"],
+                    },
+                    borderRadius: {
+                        "DEFAULT": "2px",
+                        "sm": "2px",
+                        "md": "4px",
+                        "lg": "8px",
+                    },
+                    boxShadow: {
+                        'none': 'none',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar to match technical aesthetic */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F4F4F0;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #E5E5E0;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #858580;
+        }
+        
+        /* Hide scrollbar for clean horizontal scroll */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Specific text utilities for the design system */
+        .text-ink { color: #1A1A1A; }
+        .bg-paper { background-color: #F4F4F0; }
+        .border-std { border-color: #E5E5E0; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-paper text-ink antialiased font-body flex flex-col min-h-screen overflow-x-hidden">
+<!-- Header Module -->
+<header class="sticky top-0 z-50 bg-white border-b border-std pt-12 pb-2 px-5">
+<div class="flex items-center justify-between mb-1">
+<h1 class="font-display font-bold text-2xl tracking-tight text-primary uppercase">Squadron Manifest</h1>
+<div class="h-2 w-2 rounded-full bg-red-600 animate-pulse"></div>
+</div>
+<p class="font-mono text-xs text-muted tracking-widest uppercase">2023/24 Campaign • Active Roster</p>
+</header>
+<!-- Sticky Sort Bar -->
+<div class="sticky top-[89px] z-40 bg-paper/95 backdrop-blur-sm border-b border-std px-5 py-3 flex items-center justify-between">
+<span class="font-mono text-[10px] text-muted uppercase tracking-widest mr-4">SORT SEQUENCE:</span>
+<div class="flex gap-4 overflow-x-auto no-scrollbar">
+<button class="font-mono text-xs font-bold text-primary underline underline-offset-4 decoration-blueprint decoration-2 uppercase whitespace-nowrap">
+                [ NAME ]
+            </button>
+<button class="font-mono text-xs text-muted hover:text-primary transition-colors uppercase whitespace-nowrap">
+                [ FORM ]
+            </button>
+<button class="font-mono text-xs text-muted hover:text-primary transition-colors uppercase whitespace-nowrap">
+                [ MINUTES ]
+            </button>
+</div>
+</div>
+<!-- Main Content List -->
+<main class="flex-1 pb-24">
+<!-- Section: Goalkeepers -->
+<section>
+<div class="bg-paper px-5 py-2 border-b border-std flex items-center gap-2">
+<span class="material-symbols-outlined text-[14px] text-muted">shield</span>
+<h3 class="font-mono text-[10px] font-bold text-muted uppercase tracking-widest">Unit 01: Goalkeepers</h3>
+</div>
+<!-- Player Card 01 -->
+<article class="group relative bg-white border-b border-std h-20 overflow-hidden cursor-pointer hover:bg-slate-50 transition-colors">
+<div class="absolute left-0 top-0 bottom-0 w-[3px] bg-transparent group-hover:bg-blueprint transition-colors"></div>
+<div class="flex items-center h-full px-5 gap-4">
+<!-- Kit Number -->
+<div class="w-12 flex-shrink-0 text-center">
+<span class="font-display text-3xl font-light text-muted group-hover:text-primary transition-colors">99</span>
+</div>
+<!-- Identity -->
+<div class="flex-1 flex flex-col justify-center">
+<div class="flex items-center gap-2">
+<span class="font-display font-bold text-primary text-base uppercase leading-tight">Gerson Dida</span>
+
+</div>
+<span class="font-mono text-xs text-muted mt-0.5">GK • First Team</span>
+</div>
+<!-- Metric -->
+<div class="text-right">
+<span class="font-mono text-sm font-bold text-primary block">12</span>
+<span class="font-mono text-[10px] text-muted uppercase block tracking-wider">Clean Sheets</span>
+</div>
+<!-- Arrow -->
+<span class="material-symbols-outlined text-muted text-lg transform group-hover:translate-x-1 transition-transform">chevron_right</span>
+</div>
+</article>
+<!-- Player Card 02 -->
+
+</section>
+<!-- Section: Defense -->
+<section>
+<div class="bg-paper px-5 py-2 border-b border-std flex items-center gap-2 mt-4">
+<span class="material-symbols-outlined text-[14px] text-muted">security</span>
+<h3 class="font-mono text-[10px] font-bold text-muted uppercase tracking-widest">Unit 02: Defensive Line</h3>
+</div>
+<!-- Player Card 03 (Active/Expanded State) -->
+<div class="relative">
+<article class="group relative bg-white border-b border-std h-20 overflow-hidden cursor-pointer bg-slate-50">
+<div class="absolute left-0 top-0 bottom-0 w-[3px] bg-blueprint"></div>
+<div class="flex items-center h-full px-5 gap-4">
+<!-- Kit Number -->
+<div class="w-12 flex-shrink-0 text-center">
+<span class="font-display text-3xl font-light text-primary">03</span>
+</div>
+<!-- Identity -->
+<div class="flex-1 flex flex-col justify-center">
+<div class="flex items-center gap-2">
+<span class="font-display font-bold text-primary text-base uppercase leading-tight">Almir</span>
+
+</div>
+<span class="font-mono text-xs text-muted mt-0.5" textContent="DF • Starter">CB • Captain</span>
+</div>
+<!-- Metric -->
+<div class="text-right">
+<span class="font-mono text-sm font-bold text-blueprint block">88%</span>
+<span class="font-mono text-[10px] text-muted uppercase block tracking-wider">Tackle Suc.</span>
+</div>
+<!-- Arrow -->
+<span class="material-symbols-outlined text-blueprint text-lg transform rotate-90 transition-transform">chevron_right</span>
+</div>
+</article>
+<!-- Expanded Detail View (Accordion Content) -->
+<div class="bg-paper border-b border-std px-5 py-6 grid grid-cols-2 gap-4">
+<!-- Stat Block 1 -->
+<div class="flex flex-col gap-1">
+<span class="font-mono text-[10px] text-muted uppercase">Contract Expiry</span>
+<span class="font-display text-sm font-semibold text-primary">30 JUN 2024</span>
+</div>
+<!-- Stat Block 2 -->
+<div class="flex flex-col gap-1">
+<span class="font-mono text-[10px] text-muted uppercase">Market Value</span>
+<span class="font-display text-sm font-semibold text-primary">€800K</span>
+</div>
+<!-- Stat Block 3 -->
+<div class="flex flex-col gap-1">
+<span class="font-mono text-[10px] text-muted uppercase">Height / Weight</span>
+<span class="font-display text-sm font-semibold text-primary">188cm / 81kg</span>
+</div>
+<!-- Stat Block 4 -->
+<div class="flex flex-col gap-1">
+<span class="font-mono text-[10px] text-muted uppercase">Season Rating</span>
+<div class="flex items-center gap-2">
+<span class="bg-green-100 text-green-700 px-1.5 py-0.5 rounded text-xs font-mono font-bold">7.2</span>
+<span class="text-[10px] text-muted">Avg</span>
+</div>
+</div>
+<!-- Mini Heatmap Visualization -->
+<div class="col-span-2 mt-2 pt-4 border-t border-dashed border-gray-300">
+<span class="font-mono text-[10px] text-muted uppercase mb-2 block">Seasonal Heatmap</span>
+<div class="h-24 w-full bg-white border border-std relative overflow-hidden rounded-sm" data-alt="Abstract heatmap showing player activity concentrated in defensive third" style="background-image: radial-gradient(circle at 30% 70%, rgba(255, 59, 48, 0.4) 0%, transparent 40%), radial-gradient(circle at 50% 50%, rgba(0, 87, 255, 0.1) 0%, transparent 60%);">
+<!-- Pitch Lines (Abstract) -->
+<div class="absolute inset-0 border border-std opacity-30 m-2"></div>
+<div class="absolute top-1/2 left-0 right-0 h-[1px] bg-std opacity-30"></div>
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 border border-std rounded-full opacity-30"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Player Card 04 -->
+<article class="group relative bg-white border-b border-std h-20 overflow-hidden cursor-pointer hover:bg-slate-50 transition-colors">
+<div class="absolute left-0 top-0 bottom-0 w-[3px] bg-transparent group-hover:bg-blueprint transition-colors"></div>
+<div class="flex items-center h-full px-5 gap-4">
+<!-- Kit Number -->
+<div class="w-12 flex-shrink-0 text-center">
+<span class="font-display text-3xl font-light text-muted group-hover:text-primary transition-colors">12</span>
+</div>
+<!-- Identity -->
+<div class="flex-1 flex flex-col justify-center">
+<div class="flex items-center gap-2">
+<span class="font-display font-bold text-primary text-base uppercase leading-tight">Zaidu Sanusi</span>
+<img alt="Nigeria" class="h-2 w-auto opacity-80" data-alt="Nigerian flag icon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPGNd6YMhhtNkVsLex987iig6unRUf7X0AanF3t4XSeXyuPXPnkFBs58yGRl02E23E-ValMpPnYMsYHxt24SO8OFiypyrTLLmi9_HSko67FRHz5qgolVhOVqLQNE4PtsamoxCyaTWss8urhjQnKwlewyuSIHfJGHNOvWfr0RY3K9ocsH2todP0hZj5DAawbOLT4Lrmhn5WLVokmKZUx63ueeBpldE-k5ZzqVhKc0xdnx6yIbhtEOvAq8SVoyDfZke_bgsTzb3aeNr3"/>
+</div>
+<span class="font-mono text-xs text-muted mt-0.5">LB • Starter</span>
+</div>
+<!-- Metric -->
+<div class="text-right">
+<span class="font-mono text-sm font-bold text-primary block">32.4</span>
+<span class="font-mono text-[10px] text-muted uppercase block tracking-wider">km/h Top</span>
+</div>
+<!-- Arrow -->
+<span class="material-symbols-outlined text-muted text-lg transform group-hover:translate-x-1 transition-transform">chevron_right</span>
+</div>
+</article>
+<!-- Player Card 05 -->
+<article class="group relative bg-white border-b border-std h-20 overflow-hidden cursor-pointer hover:bg-slate-50 transition-colors">
+<div class="absolute left-0 top-0 bottom-0 w-[3px] bg-transparent group-hover:bg-blueprint transition-colors"></div>
+<div class="flex items-center h-full px-5 gap-4">
+<!-- Kit Number -->
+<div class="w-12 flex-shrink-0 text-center">
+<span class="font-display text-3xl font-light text-muted group-hover:text-primary transition-colors">23</span>
+</div>
+<!-- Identity -->
+<div class="flex-1 flex flex-col justify-center">
+<div class="flex items-center gap-2">
+<span class="font-display font-bold text-primary text-base uppercase leading-tight">Almir</span>
+
+</div>
+<span class="font-mono text-xs text-muted mt-0.5" textContent="DF • Starter">RB • Starter</span>
+</div>
+<!-- Metric -->
+<div class="text-right">
+<span class="font-mono text-sm font-bold text-primary block">7</span>
+<span class="font-mono text-[10px] text-muted uppercase block tracking-wider">Assists</span>
+</div>
+<!-- Arrow -->
+<span class="material-symbols-outlined text-muted text-lg transform group-hover:translate-x-1 transition-transform">chevron_right</span>
+</div>
+</article>
+</section>
+<!-- Section: Midfield -->
+<section>
+<div class="bg-paper px-5 py-2 border-b border-std flex items-center gap-2 mt-4">
+<span class="material-symbols-outlined text-[14px] text-muted">engineering</span>
+<h3 class="font-mono text-[10px] font-bold text-muted uppercase tracking-widest">Unit 03: Midfield Engine</h3>
+</div>
+<!-- Player Card 06 -->
+<article class="group relative bg-white border-b border-std h-20 overflow-hidden cursor-pointer hover:bg-slate-50 transition-colors">
+<div class="absolute left-0 top-0 bottom-0 w-[3px] bg-transparent group-hover:bg-blueprint transition-colors"></div>
+<div class="flex items-center h-full px-5 gap-4">
+<!-- Kit Number -->
+<div class="w-12 flex-shrink-0 text-center">
+<span class="font-display text-3xl font-light text-muted group-hover:text-primary transition-colors">08</span>
+</div>
+<!-- Identity -->
+<div class="flex-1 flex flex-col justify-center">
+<div class="flex items-center gap-2">
+<span class="font-display font-bold text-primary text-base uppercase leading-tight">Octávio</span>
+
+</div>
+<span class="font-mono text-xs text-muted mt-0.5">CDM • Anchor</span>
+</div>
+<!-- Metric -->
+<div class="text-right">
+<span class="font-mono text-sm font-bold text-primary block">91%</span>
+<span class="font-mono text-[10px] text-muted uppercase block tracking-wider">Pass Acc.</span>
+</div>
+<!-- Arrow -->
+<span class="material-symbols-outlined text-muted text-lg transform group-hover:translate-x-1 transition-transform">chevron_right</span>
+</div>
+</article>
+<!-- Player Card 07 -->
+
+</section>
+<!-- Section: Attack -->
+<section>
+<div class="bg-paper px-5 py-2 border-b border-std flex items-center gap-2 mt-4">
+<span class="material-symbols-outlined text-[14px] text-muted">target</span>
+<h3 class="font-mono text-[10px] font-bold text-muted uppercase tracking-widest">Unit 04: Attack Force</h3>
+</div>
+<!-- Player Card 08 -->
+<article class="group relative bg-white border-b border-std h-20 overflow-hidden cursor-pointer hover:bg-slate-50 transition-colors">
+<div class="absolute left-0 top-0 bottom-0 w-[3px] bg-transparent group-hover:bg-blueprint transition-colors"></div>
+<div class="flex items-center h-full px-5 gap-4">
+<!-- Kit Number -->
+<div class="w-12 flex-shrink-0 text-center">
+<span class="font-display text-3xl font-light text-muted group-hover:text-primary transition-colors">09</span>
+</div>
+<!-- Identity -->
+<div class="flex-1 flex flex-col justify-center">
+<div class="flex items-center gap-2">
+<span class="font-display font-bold text-primary text-base uppercase leading-tight">Pablo Thomaz</span>
+
+</div>
+<span class="font-mono text-xs text-muted mt-0.5">ST • Finisher</span>
+</div>
+<!-- Metric -->
+<div class="text-right">
+<span class="font-mono text-sm font-bold text-primary block">14</span>
+<span class="font-mono text-[10px] text-muted uppercase block tracking-wider">Goals</span>
+</div>
+<!-- Arrow -->
+<span class="material-symbols-outlined text-muted text-lg transform group-hover:translate-x-1 transition-transform">chevron_right</span>
+</div>
+</article>
+<!-- Player Card 09 -->
+
+</section>
+</main>
+<!-- Bottom Navigation Component -->
+<nav class="fixed bottom-0 left-0 right-0 z-50">
+<div class="relative flex w-full flex-col bg-white border-t border-[#E5E5E0]" style='font-family: "Space Grotesk", "Noto Sans", sans-serif;'>
+<div class="flex gap-2 bg-white px-4 pb-3 pt-2">
+<a class="just flex flex-1 flex-col items-center justify-end gap-1 text-[#858580] hover:text-[#1A1A1A] transition-colors group" href="#">
+<div class="group-hover:text-[#1A1A1A] flex h-8 items-center justify-center" data-icon="Target">
+<span class="material-symbols-outlined text-[24px]">target</span>
+</div>
+<p class="text-[10px] uppercase font-bold leading-normal tracking-[0.05em]">Tactical</p>
+</a>
+<a class="just flex flex-1 flex-col items-center justify-end gap-1 text-[#858580] hover:text-[#1A1A1A] transition-colors group" href="#">
+<div class="group-hover:text-[#1A1A1A] flex h-8 items-center justify-center" data-icon="ChartBar">
+<span class="material-symbols-outlined text-[24px]">bar_chart</span>
+</div>
+<p class="text-[10px] uppercase font-bold leading-normal tracking-[0.05em]">Intel</p>
+</a>
+<!-- Active Item -->
+<a class="just flex flex-1 flex-col items-center justify-end gap-1 text-[#1A1A1A]" href="#">
+<div class="text-[#0057FF] flex h-8 items-center justify-center relative" data-icon="Users">
+<span class="material-symbols-outlined text-[24px] font-variation-fill">group</span>
+<span class="absolute -bottom-1 w-1 h-1 bg-[#0057FF] rounded-full"></span>
+</div>
+<p class="text-[10px] uppercase font-bold leading-normal tracking-[0.05em] text-[#0057FF]">Squadron</p>
+</a>
+<a class="just flex flex-1 flex-col items-center justify-end gap-1 text-[#858580] hover:text-[#1A1A1A] transition-colors group" href="#">
+<div class="group-hover:text-[#1A1A1A] flex h-8 items-center justify-center" data-icon="Calendar">
+<span class="material-symbols-outlined text-[24px]">calendar_today</span>
+</div>
+<p class="text-[10px] uppercase font-bold leading-normal tracking-[0.05em]">Campaign</p>
+</a>
+<a class="just flex flex-1 flex-col items-center justify-end gap-1 text-[#858580] hover:text-[#1A1A1A] transition-colors group" href="#">
+<div class="group-hover:text-[#1A1A1A] flex h-8 items-center justify-center" data-icon="Ticket">
+<span class="material-symbols-outlined text-[24px]">confirmation_number</span>
+</div>
+<p class="text-[10px] uppercase font-bold leading-normal tracking-[0.05em]">Access</p>
+</a>
+</div>
+</div>
+</nav>
+<!-- FAB (Floating Action Button) for Gate Entry - as per context, persistent on screens -->
+<button class="fixed bottom-24 right-5 z-50 h-14 w-14 bg-[#1A1A1A] rounded-full shadow-lg flex items-center justify-center text-white border border-[#333] hover:scale-105 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[28px]">qr_code_2</span>
+</button>
+</body></html>

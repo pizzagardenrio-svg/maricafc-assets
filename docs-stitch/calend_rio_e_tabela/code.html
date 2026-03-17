@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Campaign Log - O Estrategista</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1A1A1A",
+                        "blueprint": "#002147", // Maricá Navy
+                        "team-red": "#ED1C24", // Maricá Red
+                        "paper": "#F4F4F0",
+                        "ink": "#1A1A1A",
+                        "muted": "#858580",
+                        "border-std": "#E5E5E0",
+                        "success": "#00B060",
+                        "alert": "#ED1C24",
+                        "highlight": "#E6F0FF",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"],
+                    },
+                    fontSize: {
+                        "xxs": "0.65rem",
+                    },
+                    borderWidth: {
+                        "1": "1px",
+                    },
+                    boxShadow: {
+                        "none": "none",
+                    }
+                },
+            },
+        }
+    </script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&amp;family=Inter:wght@300..700&amp;family=JetBrains+Mono:wght@400..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1A1A1A",
+                        "blueprint": "#002147", // Maricá Navy
+                        "team-red": "#ED1C24", // Maricá Red
+                        "paper": "#F4F4F0",
+                        "ink": "#1A1A1A",
+                        "muted": "#858580",
+                        "border-std": "#E5E5E0",
+                        "success": "#00B060",
+                        "alert": "#ED1C24",
+                        "highlight": "#E6F0FF",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"],
+                    },
+                    fontSize: {
+                        "xxs": "0.65rem",
+                    },
+                    borderWidth: {
+                        "1": "1px",
+                    },
+                    boxShadow: {
+                        "none": "none",
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for horizontal scrolling tables to fit the sterile aesthetic */
+        .hide-scrollbar::-webkit-scrollbar {
+            height: 4px;
+        }
+        .hide-scrollbar::-webkit-scrollbar-track {
+            background: #F4F4F0;
+        }
+        .hide-scrollbar::-webkit-scrollbar-thumb {
+            background: #E5E5E0;
+            border-radius: 2px;
+        }
+        .hide-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #858580;
+        }
+        
+        /* Tactical grid background pattern */
+        .bg-grid-pattern {
+            background-image: linear-gradient(#E5E5E0 1px, transparent 1px), linear-gradient(90deg, #E5E5E0 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        /* Utility for dense data rows */
+        .tabular-nums {
+            font-variant-numeric: tabular-nums;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-paper text-ink font-body h-full min-h-screen flex flex-col antialiased">
+<!-- Header Area -->
+<header class="sticky top-0 z-50 bg-paper/95 backdrop-blur-sm border-b border-border-std pt-safe-top">
+<div class="px-4 py-3 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<button class="flex items-center justify-center w-8 h-8 text-ink hover:bg-black/5 rounded-sm transition-colors">
+<span class="material-symbols-outlined" style="font-size: 20px;">arrow_back</span>
+</button>
+<h1 class="font-display font-bold text-lg tracking-tight uppercase">Campaign Log</h1>
+</div>
+<button class="flex items-center justify-center w-8 h-8 text-ink hover:bg-black/5 rounded-sm transition-colors">
+<span class="material-symbols-outlined" style="font-size: 20px;">filter_list</span>
+</button>
+</div>
+<!-- Segmented Control / Toggle -->
+<div class="px-4 pb-3">
+<div class="flex p-1 bg-white border border-border-std rounded-sm relative">
+<!-- Active Indicator Background (using absolute positioning to simulate slide if we had JS, here static for mockup) -->
+<!-- For this static mockup, we'll style the active button directly -->
+<button class="flex-1 py-1.5 text-xs font-display font-bold tracking-wide text-center text-muted hover:text-ink transition-colors relative z-10">
+                    FIXTURES
+                </button>
+<button class="flex-1 py-1.5 text-xs font-display font-bold tracking-wide text-center text-ink bg-paper border border-border-std shadow-sm rounded-sm relative z-10">
+                    TABLE
+                </button>
+</div>
+</div>
+</header>
+<!-- Main Content Area: League Table View -->
+<main class="flex-1 overflow-y-auto overflow-x-hidden relative">
+<!-- Table Legend / Meta info -->
+<div class="px-4 py-2 flex items-center justify-between border-b border-border-std bg-paper text-xs text-muted font-mono uppercase tracking-wider">
+<span>Campeonato Carioca • Grupo X</span>
+<span class="flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-team-red"></span>
+<span>Rebaixamento</span>
+</span>
+</div>
+<!-- The Table Container -->
+<div class="w-full bg-white overflow-x-auto hide-scrollbar pb-20">
+<table class="w-full text-left border-collapse min-w-[360px]">
+<thead class="bg-paper sticky top-0 z-40 border-b border-border-std">
+<tr>
+<th class="py-2 pl-3 pr-1 w-10 text-xs font-mono font-medium text-muted border-r border-border-std text-center">#</th>
+<th class="py-2 px-3 text-xs font-mono font-medium text-muted text-left w-auto">CLUB</th>
+<th class="py-2 px-1 text-xs font-mono font-medium text-muted text-center w-8">PL</th>
+<th class="py-2 px-1 text-xs font-mono font-medium text-muted text-center w-10">GD</th>
+<th class="py-2 pl-1 pr-3 text-xs font-mono font-bold text-ink text-right w-12">PTS</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-std font-mono text-sm">
+<!-- Row 1 -->
+<tr class="group hover:bg-gray-50 transition-colors">
+<td class="py-3 pl-3 pr-1 text-center border-r border-border-std text-muted">
+                            1
+                        </td>
+<td class="py-3 px-3">
+<div class="flex items-center gap-2">
+<span class="font-display font-semibold text-ink">SAMPAIO CORRÊA</span>
+</div>
+</td>
+<td class="py-3 px-1 text-center text-muted tabular-nums">3</td>
+<td class="py-3 px-1 text-center text-ink tabular-nums font-medium">+2</td>
+<td class="py-3 pl-1 pr-3 text-right font-bold text-ink tabular-nums">7</td>
+</tr>
+<!-- Row 2: USER CLUB Highlight -->
+<tr class="bg-highlight relative shadow-[inset_0px_1px_0px_#002147,inset_0px_-1px_0px_#002147]">
+<td class="py-4 pl-3 pr-1 text-center border-r border-blueprint/20 text-ink font-bold relative">
+<div class="absolute left-0 top-0 bottom-0 w-[3px] bg-blueprint"></div>
+                            2
+                        </td>
+<td class="py-4 px-3">
+<div class="flex items-center gap-2">
+<span class="font-display font-bold text-ink">MARICÁ FC</span>
+</div>
+</td>
+<td class="py-4 px-1 text-center text-ink font-medium tabular-nums">3</td>
+<td class="py-4 px-1 text-center text-ink font-bold tabular-nums">+1</td>
+<td class="py-4 pl-1 pr-3 text-right font-bold text-ink text-base tabular-nums">5</td>
+</tr>
+<!-- Row 3 -->
+<tr class="group hover:bg-gray-50 transition-colors">
+<td class="py-3 pl-3 pr-1 text-center border-r border-border-std text-muted relative">
+<div class="absolute left-0 top-0 bottom-0 w-[3px] bg-team-red"></div>
+                            3
+                        </td>
+<td class="py-3 px-3">
+<div class="flex items-center gap-2">
+<span class="font-display font-semibold text-ink">PORTUGUESA RJ</span>
+</div>
+</td>
+<td class="py-3 px-1 text-center text-muted tabular-nums">3</td>
+<td class="py-3 px-1 text-center text-ink tabular-nums font-medium">-1</td>
+<td class="py-3 pl-1 pr-3 text-right font-bold text-ink tabular-nums">2</td>
+</tr>
+<!-- Row 4 -->
+<tr class="group hover:bg-gray-50 transition-colors">
+<td class="py-3 pl-3 pr-1 text-center border-r border-border-std text-muted relative">
+<div class="absolute left-0 top-0 bottom-0 w-[3px] bg-team-red"></div>
+                            4
+                        </td>
+<td class="py-3 px-3">
+<div class="flex items-center gap-2">
+<span class="font-display font-semibold text-ink">NOVA IGUAÇU</span>
+</div>
+</td>
+<td class="py-3 px-1 text-center text-muted tabular-nums">3</td>
+<td class="py-3 px-1 text-center text-ink tabular-nums font-medium">-2</td>
+<td class="py-3 pl-1 pr-3 text-right font-bold text-ink tabular-nums">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Secondary Implied Content: Fixture List Preview (Below the fold/scrolled) -->
+<div class="bg-paper border-t border-border-std py-4">
+<div class="px-4 py-2 flex items-center justify-between">
+<h2 class="font-display font-bold text-sm tracking-wide uppercase">Upcoming Fixtures</h2>
+<span class="text-xs font-mono text-muted">FEB / MAR 2024</span>
+</div>
+<div class="mt-2 bg-white border-y border-border-std divide-y divide-border-std">
+<!-- Fixture Item 1 -->
+<div class="flex items-center p-4 gap-3">
+<div class="flex flex-col items-center justify-center min-w-[40px] border-r border-border-std pr-3">
+<span class="text-xs font-mono text-muted">MON</span>
+<span class="text-lg font-mono font-bold text-ink leading-none">26</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between mb-1">
+<span class="font-display font-semibold text-ink">SAMPAIO CORRÊA</span>
+<div class="flex items-center gap-1 text-muted">
+<span class="material-symbols-outlined text-[14px]">flight_takeoff</span>
+<span class="text-xs font-mono">AWAY</span>
+</div>
+</div>
+<div class="text-xs font-mono text-muted">CAMPEONATO CARIOCA • 20:30</div>
+</div>
+</div>
+<!-- Fixture Item 2 -->
+<div class="flex items-center p-4 gap-3">
+<div class="flex flex-col items-center justify-center min-w-[40px] border-r border-border-std pr-3">
+<span class="text-xs font-mono text-muted">SAT</span>
+<span class="text-lg font-mono font-bold text-ink leading-none">02</span>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between mb-1">
+<span class="font-display font-semibold text-ink">NOVA IGUAÇU</span>
+<div class="flex items-center gap-1 text-muted">
+<span class="material-symbols-outlined text-[14px]">home</span>
+<span class="text-xs font-mono">HOME</span>
+</div>
+</div>
+<div class="text-xs font-mono text-muted">CAMPEONATO CARIOCA • 15:30</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar (Provided Component, integrated with style updates) -->
+<div class="sticky bottom-0 z-50 flex h-auto w-full flex-col bg-white border-t border-border-std">
+<!-- Gate Entry FAB -->
+<div class="absolute right-4 -top-6 translate-y-[-50%]">
+<button class="flex h-14 w-14 items-center justify-center rounded-full bg-primary text-white shadow-lg hover:bg-primary/90 transition-colors border-2 border-white">
+<span class="material-symbols-outlined" style="font-size: 28px;">qr_code_2</span>
+</button>
+</div>
+<div class="flex gap-2 bg-white px-4 pb-4 pt-3 justify-between">
+<a class="flex flex-1 flex-col items-center justify-end gap-1 text-muted hover:text-ink transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<p class="text-[10px] font-medium leading-normal tracking-wide font-display uppercase">Dashboard</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-end gap-1 text-muted hover:text-ink transition-colors" href="#">
+<span class="material-symbols-outlined">pie_chart</span>
+<p class="text-[10px] font-medium leading-normal tracking-wide font-display uppercase">Intel</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-end gap-1 text-muted hover:text-ink transition-colors" href="#">
+<span class="material-symbols-outlined">groups</span>
+<p class="text-[10px] font-medium leading-normal tracking-wide font-display uppercase">Squadron</p>
+</a>
+<!-- Active State -->
+<a class="flex flex-1 flex-col items-center justify-end gap-1 text-ink" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">calendar_month</span>
+<p class="text-[10px] font-medium leading-normal tracking-wide font-display uppercase">Campaign</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-end gap-1 text-muted hover:text-ink transition-colors" href="#">
+<span class="material-symbols-outlined">shopping_bag</span>
+<p class="text-[10px] font-medium leading-normal tracking-wide font-display uppercase">Store</p>
+</a>
+</div>
+<div class="h-safe-bottom bg-white"></div>
+</div>
+</body></html>
