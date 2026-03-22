@@ -18,7 +18,7 @@ export default function Index() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const [videoFinished, setVideoFinished] = useState(false);
+  const [videoFinished, setVideoFinished] = useState(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
   const checkUserAndNavigate = () => {
