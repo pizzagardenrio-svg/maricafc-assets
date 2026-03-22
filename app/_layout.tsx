@@ -37,6 +37,8 @@ const ROUTE_TO_TAB: Record<string, TabId> = {
   LojaScreen:        'Loja',
 };
 
+const BG = '#F4F4F0'; // cor papel — usada em todos os containers
+
 // ─── Componente ──────────────────────────────────────────────────────────────
 export default function Layout() {
   const segments = useSegments();
@@ -47,12 +49,11 @@ export default function Layout() {
 
   /**
    * isReady: bloqueia a renderização até o Firebase responder pela 1ª vez.
-   * Evita o flash de tela branca na Vercel e no cold-start mobile,
-   * onde o estado de autenticação ainda é desconhecido.
+   * Evita o flash de tela branca na Vercel e no cold-start mobile.
    */
   const [isReady, setIsReady] = useState(false);
 
-  // ─── Animações de fade (uma por aba, refs estáveis entre renders) ─────────
+  // ─── Animações de fade (refs estáveis — não são recriadas entre renders) ──
   const fadeAnims = useRef<Record<TabId, Animated.Value>>({
     Home:   new Animated.Value(1),
     Clube:  new Animated.Value(0),
@@ -65,21 +66,17 @@ export default function Layout() {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setIsLogged(!!user);
-      // Libera o render somente após a primeira resposta do Firebase.
-      setIsReady(true);
+      setIsReady(true); // libera o render somente após a 1ª resposta do Firebase
     });
     return () => unsubscribe();
   }, []);
 
-  // ─── Detecção da rota atual (compatível com Expo Router SDK 54) ───────────
-  // useSegments() retorna cada segmento da URL. O último é a rota ativa.
-  // Ex.: ['(app)', 'hq'] → currentPath = 'hq'
-  // O fallback '' garante string mesmo com segments vazio.
+  // ─── Rota atual (Expo Router SDK 54) ─────────────────────────────────────
+  // useSegments() → ex.: ['(app)', 'hq']. Último segmento = tela ativa.
   const currentPath: string = segments[segments.length - 1] ?? '';
-
   const isMainApp = (MAIN_APP_ROUTES as readonly string[]).includes(currentPath);
 
-  // ─── Sincroniza activeTab se navegar via router (ex: botão voltar) ────────
+  // ─── Sincroniza aba ao navegar via router / botão voltar ─────────────────
   useEffect(() => {
     const mappedTab = ROUTE_TO_TAB[currentPath];
     if (mappedTab && mappedTab !== activeTab) {
@@ -123,7 +120,7 @@ export default function Layout() {
           {
             opacity: fadeAnims[id],
             zIndex: isActive ? 10 : 0,
-            backgroundColor: '#F4F4F0',
+            backgroundColor: BG, // cor sólida — sem transparência branca
           },
         ]}
       >
@@ -132,8 +129,7 @@ export default function Layout() {
     );
   };
 
-  // ─── Loader de inicialização ──────────────────────────────────────────────
-  // Mostrado enquanto o Firebase ainda não respondeu — evita tela branca.
+  // ─── Loader de inicialização (Firebase ainda não respondeu) ───────────────
   if (!isReady) {
     return (
       <View style={styles.loadingContainer}>
@@ -154,15 +150,14 @@ export default function Layout() {
 
         {isMainApp && <HeaderTatico />}
 
-        <View style={{ flex: 1 }}>
+        <View style={styles.body}>
           {/* Stack para rotas fora das tabs (Login, Intro, Detalhes, etc.) */}
           <Stack
             screenOptions={{
               headerShown: false,
               animation: 'fade',
-              contentStyle: { backgroundColor: '#F4F4F0' },
-              // Mantém a tela anterior montada para evitar re-mount nas tabs
-              detachPreviousScreen: false,
+              contentStyle: { backgroundColor: BG }, // evita flash branco entre rotas
+              detachPreviousScreen: false,            // mantém tab anterior montada
             }}
           >
             <Stack.Screen name="index" />
@@ -176,9 +171,9 @@ export default function Layout() {
             <Stack.Screen name="PortalSocioScreen" options={{ animation: 'none' }} />
           </Stack>
 
-          {/* Switcher persistente — sobrepõe o Stack quando dentro do app principal */}
+          {/* Switcher persistente — sobrepõe o Stack dentro do app principal */}
           {isMainApp && (
-            <View style={StyleSheet.absoluteFill}>
+            <View style={[StyleSheet.absoluteFill, { backgroundColor: BG }]}>
               {renderSection('Home',   HQMaricaScreen)}
               {renderSection('Clube',  ClubeScreen)}
               {renderSection('Agenda', TabelaScreen)}
@@ -201,14 +196,21 @@ export default function Layout() {
 
 // ─── Estilos ─────────────────────────────────────────────────────────────────
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F4F4F0',
-  },
+  // Loader de inicialização
   loadingContainer: {
     flex: 1,
-    backgroundColor: '#F4F4F0',
+    backgroundColor: BG,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  // Container raiz — backgroundColor fixo elimina transparências brancas
+  container: {
+    flex: 1,
+    backgroundColor: BG,
+  },
+  // Área de conteúdo entre Header e NavBar
+  body: {
+    flex: 1,
+    backgroundColor: BG,
   },
 });

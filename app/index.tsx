@@ -19,49 +19,22 @@ const COLORS = {
   muted: '#858580',
 };
 
-/**
- * Na Web, o autoplay de vídeo é bloqueado por padrão nos navegadores modernos,
- * então a intro é pulada e o formulário aparece diretamente.
- * No mobile (iOS / Android) o comportamento original com vídeo é mantido.
- */
-const IS_WEB = Platform.OS === 'web';
-
 export default function Index() {
   const router = useRouter();
 
-  const [email,          setEmail]          = useState('');
-  const [password,       setPassword]       = useState('');
-  const [loading,        setLoading]        = useState(false);
-  // Web: começa true (sem intro). Mobile: começa false (aguarda vídeo).
-  const [videoFinished,  setVideoFinished]  = useState(IS_WEB);
-  // Enquanto o Firebase verifica a sessão, não renderizamos nada para
-  // evitar flash de tela branca / redirect incorreto.
-  const [initializing,   setInitializing]   = useState(true);
+  const [email,        setEmail]        = useState('');
+  const [password,     setPassword]     = useState('');
+  const [loading,      setLoading]      = useState(false);
+  const [initializing, setInitializing] = useState(true);
 
+  // ─── Listener de sessão ───────────────────────────────────────────────────
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        // Usuário já logado → vai direto para a home, sem passar pelo formulário.
-        router.replace('/hq');
-      }
-      // Só marca como "pronto" após a resposta do Firebase.
+      if (user) router.replace('/hq');
       setInitializing(false);
     });
-
-    // Cancela o listener ao desmontar o componente.
     return unsubscribe;
   }, []);
-
-  // ─── Loader de inicialização ─────────────────────────────────────────────
-  // Exibido enquanto o Firebase ainda não respondeu se há sessão ativa.
-  // Evita que o formulário pisce na tela por um frame antes do redirect.
-  if (initializing) {
-    return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color={COLORS.navy} />
-      </View>
-    );
-  }
 
   // ─── Handlers ────────────────────────────────────────────────────────────
   const handleLogin = () => {
@@ -89,134 +62,139 @@ export default function Index() {
       .catch(() => Alert.alert('Erro', 'E-mail não encontrado.'));
   };
 
+  // ─── Loader de inicialização ──────────────────────────────────────────────
+  if (initializing) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color={COLORS.navy} />
+      </View>
+    );
+  }
+
   // ─── Render ───────────────────────────────────────────────────────────────
   return (
     <View style={styles.masterContainer}>
 
-      {/* ── VÍDEO DE INTRO — somente mobile, somente antes de terminar ── */}
-      {!IS_WEB && !videoFinished && (
-        <View style={styles.videoOverlay}>
-          <Video
-            source={require('../assets/images/intro.mp4')}
-            style={styles.video}
-            resizeMode={ResizeMode.COVER}
-            shouldPlay
-            isLooping={false}
-            onPlaybackStatusUpdate={(status) => {
-              // Garante type-safety (AVPlaybackStatus pode ser erro ou sucesso)
-              if (status.isLoaded && status.didJustFinish) {
-                setVideoFinished(true);
-              }
-            }}
-          />
-        </View>
-      )}
+      {/*
+        ── VÍDEO DE BACKGROUND ────────────────────────────────────────────────
+        Fica atrás de tudo (zIndex: 0).
+        • isMuted + shouldPlay + isLooping → autoplay sem bloqueio de navegador.
+        • O formulário é renderizado POR CIMA via zIndex: 1, sem nenhuma
+          lógica de "videoFinished" que esconda os inputs.
+        • Na Web, vídeos mudos em loop são permitidos pela política de autoplay
+          de todos os navegadores modernos (Chrome, Safari, Firefox).
+      */}
+      <Video
+        source={require('../assets/images/intro.mp4')}
+        style={styles.videoBg}
+        resizeMode={ResizeMode.COVER}
+        shouldPlay
+        isLooping
+        isMuted
+      />
 
-      {/* ── FORMULÁRIO — aparece após vídeo (mobile) ou imediatamente (web) ── */}
-      {videoFinished && (
-        <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-          style={styles.container}
-        >
-          <View style={styles.content}>
+      {/* ── FORMULÁRIO — sempre visível, acima do vídeo ── */}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.overlay}
+      >
+        <View style={styles.content}>
 
-            {/* Cabeçalho / Logo */}
-            <View style={styles.header}>
-              <Image
-                source={require('../assets/images/icon.png')}
-                style={styles.logo}
-                resizeMode="contain"
+          {/* Cabeçalho / Logo */}
+          <View style={styles.header}>
+            <Image
+              source={require('../assets/images/icon.png')}
+              style={styles.logo}
+              resizeMode="contain"
+            />
+            <Text style={styles.title}>MARICÁ FC</Text>
+            <Text style={styles.subtitle}>PORTAL DO SÓCIO • TSUNAMI</Text>
+          </View>
+
+          {/* Campos de login */}
+          <View style={styles.form}>
+            <View style={styles.inputWrapper}>
+              <Ionicons name="mail-outline" size={20} color={COLORS.gold} />
+              <TextInput
+                placeholder="E-mail do Sócio"
+                style={styles.input}
+                value={email}
+                onChangeText={setEmail}
+                autoCapitalize="none"
+                keyboardType="email-address"
+                placeholderTextColor="#999"
               />
-              <Text style={styles.title}>MARICÁ FC</Text>
-              <Text style={styles.subtitle}>PORTAL DO SÓCIO • TSUNAMI</Text>
             </View>
 
-            {/* Campos de login */}
-            <View style={styles.form}>
-              <View style={styles.inputWrapper}>
-                <Ionicons name="mail-outline" size={20} color={COLORS.gold} />
-                <TextInput
-                  placeholder="E-mail do Sócio"
-                  style={styles.input}
-                  value={email}
-                  onChangeText={setEmail}
-                  autoCapitalize="none"
-                  keyboardType="email-address"
-                  placeholderTextColor="#999"
-                />
-              </View>
-
-              <View style={styles.inputWrapper}>
-                <Ionicons name="lock-closed-outline" size={20} color={COLORS.gold} />
-                <TextInput
-                  placeholder="Sua senha"
-                  style={styles.input}
-                  value={password}
-                  onChangeText={setPassword}
-                  secureTextEntry
-                  placeholderTextColor="#999"
-                />
-              </View>
-
-              <TouchableOpacity
-                style={styles.loginBtn}
-                onPress={handleLogin}
-                disabled={loading}
-              >
-                {loading
-                  ? <ActivityIndicator color={COLORS.navy} />
-                  : <Text style={styles.loginBtnText}>ENTRAR AGORA</Text>
-                }
-              </TouchableOpacity>
-
-              <View style={styles.dividerRow}>
-                <View style={styles.dividerLine} />
-                <Text style={styles.dividerText}>OU</Text>
-                <View style={styles.dividerLine} />
-              </View>
-
-              <TouchableOpacity
-                style={styles.googleBtn}
-                onPress={() => Alert.alert('Em breve', 'Login com Google disponível na versão final.')}
-              >
-                <Ionicons name="logo-google" size={20} color="#DB4437" style={{ marginRight: 10 }} />
-                <Text style={styles.googleBtnText}>Entrar com Google</Text>
-              </TouchableOpacity>
+            <View style={styles.inputWrapper}>
+              <Ionicons name="lock-closed-outline" size={20} color={COLORS.gold} />
+              <TextInput
+                placeholder="Sua senha"
+                style={styles.input}
+                value={password}
+                onChangeText={setPassword}
+                secureTextEntry
+                placeholderTextColor="#999"
+              />
             </View>
 
-            {/* Rodapé */}
-            <View style={styles.footerActions}>
-              <TouchableOpacity onPress={() => router.push('/cadastro')} style={styles.actionBtn}>
-                <Text style={styles.actionTextNormal}>
-                  Ainda não é sócio?{' '}
-                  <Text style={styles.actionTextBold}>CADASTRE-SE</Text>
+            <TouchableOpacity
+              style={styles.loginBtn}
+              onPress={handleLogin}
+              disabled={loading}
+            >
+              {loading
+                ? <ActivityIndicator color={COLORS.navy} />
+                : <Text style={styles.loginBtnText}>ENTRAR AGORA</Text>
+              }
+            </TouchableOpacity>
+
+            <View style={styles.dividerRow}>
+              <View style={styles.dividerLine} />
+              <Text style={styles.dividerText}>OU</Text>
+              <View style={styles.dividerLine} />
+            </View>
+
+            <TouchableOpacity
+              style={styles.googleBtn}
+              onPress={() => Alert.alert('Em breve', 'Login com Google disponível na versão final.')}
+            >
+              <Ionicons name="logo-google" size={20} color="#DB4437" style={{ marginRight: 10 }} />
+              <Text style={styles.googleBtnText}>Entrar com Google</Text>
+            </TouchableOpacity>
+          </View>
+
+          {/* Rodapé */}
+          <View style={styles.footerActions}>
+            <TouchableOpacity onPress={() => router.push('/cadastro')} style={styles.actionBtn}>
+              <Text style={styles.actionTextNormal}>
+                Ainda não é sócio?{' '}
+                <Text style={styles.actionTextBold}>CADASTRE-SE</Text>
+              </Text>
+            </TouchableOpacity>
+
+            <View style={{ flexDirection: 'row', gap: 20 }}>
+              <TouchableOpacity onPress={handleEsqueciSenha} style={styles.forgotBtn}>
+                <Text style={styles.forgotText}>ESQUECI A SENHA</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity onPress={() => router.replace('/hq')} style={styles.forgotBtn}>
+                <Text style={[styles.forgotText, { color: COLORS.navy, opacity: 0.6 }]}>
+                  SEM LOGIN
                 </Text>
               </TouchableOpacity>
-
-              <View style={{ flexDirection: 'row', gap: 20 }}>
-                <TouchableOpacity onPress={handleEsqueciSenha} style={styles.forgotBtn}>
-                  <Text style={styles.forgotText}>ESQUECI A SENHA</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity onPress={() => router.replace('/hq')} style={styles.forgotBtn}>
-                  <Text style={[styles.forgotText, { color: COLORS.navy, opacity: 0.6 }]}>
-                    SEM LOGIN
-                  </Text>
-                </TouchableOpacity>
-              </View>
             </View>
-
           </View>
-        </KeyboardAvoidingView>
-      )}
 
+        </View>
+      </KeyboardAvoidingView>
     </View>
   );
 }
 
 // ─── Estilos ────────────────────────────────────────────────────────────────
 const styles = StyleSheet.create({
-  // Loader de inicialização (Firebase ainda não respondeu)
+  // Enquanto o Firebase responde
   loadingContainer: {
     flex: 1,
     backgroundColor: COLORS.paper,
@@ -224,22 +202,26 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-  masterContainer: { flex: 1, backgroundColor: COLORS.paper },
-
-  // Overlay do vídeo de intro (mobile)
-  videoOverlay: {
-    ...StyleSheet.absoluteFillObject,
-    zIndex: 99,
+  // Raiz da tela — cor sólida garante que não haja transparência branca
+  masterContainer: {
+    flex: 1,
     backgroundColor: COLORS.paper,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
-  video: { width, height },
 
-  // Formulário
-  container: { flex: 1 },
-  content:   { flex: 1, justifyContent: 'center', paddingHorizontal: 35 },
+  // Vídeo ocupa tudo, fica atrás (zIndex implicitamente 0)
+  videoBg: {
+    ...StyleSheet.absoluteFillObject,
+    width,
+    height,
+  },
 
+  // Formulário fica por cima do vídeo
+  overlay: {
+    flex: 1,
+    zIndex: 1,
+  },
+
+  content:  { flex: 1, justifyContent: 'center', paddingHorizontal: 35 },
   header:   { alignItems: 'center', marginBottom: 25 },
   logo:     { width: 75, height: 75, marginBottom: 15 },
   title:    { fontSize: 24, fontWeight: '900', color: COLORS.navy, letterSpacing: 1 },

@@ -10,7 +10,7 @@
     "splash": {
       "image": "./assets/images/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#F4F4F0"
     },
     "ios": {
       "supportsTablet": true
@@ -18,12 +18,20 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#F4F4F0"
       }
     },
     "web": {
-      "favicon": "./assets/images/favicon.png",
-      "bundler": "metro"
+      "bundler": "metro",
+      "favicon": "./assets/images/escudo-redondo-04.png",
+      "meta": {
+        "og:image": "./assets/images/escudo-redondo-04.png",
+        "og:title": "Maricá FC • Portal do Sócio",
+        "og:description": "O portal oficial do sócio torcedor do Maricá FC. Acesse notícias, tabela, planos e muito mais.",
+        "og:type": "website",
+        "twitter:card": "summary",
+        "twitter:image": "./assets/images/escudo-redondo-04.png"
+      }
     },
     "plugins": [
       "expo-router"
