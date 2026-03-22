@@ -1,29 +1,27 @@
 import { initializeApp, getApps, getApp } from 'firebase/app';
 import {
   initializeAuth,
-  getReactNativePersistence,
+  getAuth,
   browserLocalPersistence,
+  getReactNativePersistence,
 } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { Platform } from 'react-native';
 
 /**
- * firebase.js — Inicialização do Firebase
+ * firebase.js — blindado para produção (Expo SDK 54)
  *
- * • Lê TODAS as variáveis de ambiente via EXPO_PUBLIC_ (obrigatório para
- *   que funcionem tanto no bundle nativo quanto no build da Vercel).
- * • Usa `browserLocalPersistence` na Web e `SecureStore` no mobile.
- * • O SecureStore é importado dinamicamente para evitar que sua ausência
- *   quebre o build web (expo-secure-store não existe no browser).
- * • Um try/catch envolve toda a inicialização do auth para que um eventual
- *   erro de persistência não deixe o app em tela branca — ele cai para
- *   persistência em memória como fallback.
+ * Ordem de prioridade de persistência:
+ *   Web    → browserLocalPersistence (localStorage do navegador)
+ *   Mobile → SecureStore (expo-secure-store)
+ *   Fallback → sessão em memória (app funciona, mas não lembra o login)
+ *
+ * Cada etapa tem try/catch independente para que uma falha
+ * não trave o boot e deixe o app em tela branca.
  */
 
-// ─── Configuração ────────────────────────────────────────────────────────────
-// Todas as chaves são lidas via variáveis de ambiente.
-// Certifique-se de que estão declaradas no .env (local) e nas
-// Environment Variables do projeto na Vercel.
+// ─── Config — todas as chaves obrigatoriamente via EXPO_PUBLIC_ ───────────────
+// Declare no .env local e nas Environment Variables da Vercel.
 const firebaseConfig = {
   apiKey:            process.env.EXPO_PUBLIC_FIREBASE_API_KEY,
   authDomain:        process.env.EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -33,67 +31,41 @@ const firebaseConfig = {
   appId:             process.env.EXPO_PUBLIC_FIREBASE_APP_ID,
 };
 
-// ─── App (singleton) ─────────────────────────────────────────────────────────
+// ─── App singleton (safe para hot-reload e SSR) ───────────────────────────────
 const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 
-// ─── Auth ─────────────────────────────────────────────────────────────────────
+// ─── Auth com fallback em cascata ─────────────────────────────────────────────
 let auth;
 
 if (Platform.OS === 'web') {
-  // Web / Vercel → persiste sessão no localStorage do navegador.
+  // Web / Vercel → persiste no localStorage
   try {
     auth = initializeAuth(app, { persistence: browserLocalPersistence });
-  } catch (e) {
-    // initializeAuth lança se já foi chamado (ex.: hot-reload); reutiliza a instância.
-    const { getAuth } = require('firebase/auth');
+  } catch {
+    // initializeAuth já foi chamado (hot-reload) → reutiliza instância
     auth = getAuth(app);
   }
 } else {
-  // Mobile (iOS / Android) → persiste sessão no SecureStore do dispositivo.
-  // Importação dinâmica garante que o módulo nativo não seja avaliado na Web.
+  // Mobile → tenta SecureStore, cai para sem-persistência se falhar
   try {
     const SecureStore = require('expo-secure-store');
 
-    // O Firebase Auth exige que as chaves não contenham caracteres especiais.
-    const sanitizeKey = (key) => key.replace(/[^a-zA-Z0-9.-]/g, '_');
+    // Firebase exige chaves sem caracteres especiais
+    const sanitize = (key) => key.replace(/[^a-zA-Z0-9.-]/g, '_');
 
     const secureStorePersistence = {
-      getItem: async (key) => {
-        try {
-          return await SecureStore.getItemAsync(sanitizeKey(key));
-        } catch {
-          return null; // Falha silenciosa; auth continua sem sessão salva.
-        }
-      },
-      setItem: async (key, value) => {
-        try {
-          await SecureStore.setItemAsync(sanitizeKey(key), value);
-        } catch {
-          // Ignora falha de escrita (ex.: simulador sem Keychain).
-        }
-      },
-      removeItem: async (key) => {
-        try {
-          await SecureStore.deleteItemAsync(sanitizeKey(key));
-        } catch {
-          // Ignora falha de remoção.
-        }
-      },
+      getItem:    async (key) => { try { return await SecureStore.getItemAsync(sanitize(key));        } catch { return null; } },
+      setItem:    async (key, value) => { try { await SecureStore.setItemAsync(sanitize(key), value); } catch { /* ignora */ } },
+      removeItem: async (key) => { try { await SecureStore.deleteItemAsync(sanitize(key));             } catch { /* ignora */ } },
     };
 
     auth = initializeAuth(app, {
       persistence: getReactNativePersistence(secureStorePersistence),
     });
   } catch (e) {
-    // Fallback: se o SecureStore falhar no boot (ex.: primeiro ciclo no emulador),
-    // inicializa sem persistência para não travar o app.
-    console.warn('[Firebase] SecureStore indisponível, usando auth sem persistência.', e);
-    try {
-      auth = initializeAuth(app);
-    } catch {
-      const { getAuth } = require('firebase/auth');
-      auth = getAuth(app);
-    }
+    console.warn('[Firebase] SecureStore indisponível — usando auth sem persistência.', e);
+    try   { auth = initializeAuth(app); }
+    catch { auth = getAuth(app); }
   }
 }
 

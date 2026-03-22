@@ -25,12 +25,12 @@
       "bundler": "metro",
       "favicon": "./assets/images/escudo-redondo-04.png",
       "meta": {
-        "og:image": "./assets/images/escudo-redondo-04.png",
-        "og:title": "Maricá FC • Portal do Sócio",
-        "og:description": "O portal oficial do sócio torcedor do Maricá FC. Acesse notícias, tabela, planos e muito mais.",
-        "og:type": "website",
-        "twitter:card": "summary",
-        "twitter:image": "./assets/images/escudo-redondo-04.png"
+        "og:image":       "./assets/images/escudo-redondo-04.png",
+        "og:title":       "Maricá FC • Portal do Sócio",
+        "og:description": "O portal oficial do sócio torcedor do Maricá FC. Notícias, tabela, planos e muito mais.",
+        "og:type":        "website",
+        "twitter:card":   "summary",
+        "twitter:image":  "./assets/images/escudo-redondo-04.png"
       }
     },
     "plugins": [
