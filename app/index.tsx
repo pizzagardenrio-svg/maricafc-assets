@@ -13,12 +13,16 @@ import { useRouter } from 'expo-router';
 const { width, height } = Dimensions.get('window');
 const COLORS = { navy: '#002147', gold: '#D4AF37', paper: '#F4F4F0', white: '#FFFFFF', intro: '#F4F4F0', muted: '#858580' };
 
+// Na Web, pula o vídeo de intro diretamente (não há suporte consistente e prejudica a UX).
+// Em Android e iOS, o comportamento original com vídeo é mantido.
+const IS_WEB = Platform.OS === 'web';
+
 export default function Index() {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const [videoFinished, setVideoFinished] = useState(true);
+  const [videoFinished, setVideoFinished] = useState(IS_WEB ? true : false);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
   const checkUserAndNavigate = () => {
@@ -60,8 +64,8 @@ export default function Index() {
   return (
     <View style={styles.masterContainer}>
 
-      {/* 1. VÍDEO DE INTRO */}
-      {!videoFinished && (
+      {/* 1. VÍDEO DE INTRO — exibido apenas em Android e iOS */}
+      {!videoFinished && !IS_WEB && (
         <View style={styles.videoOverlay}>
           <Video
             source={require('../assets/images/intro.mp4')}
@@ -77,6 +81,7 @@ export default function Index() {
           />
         </View>
       )}
+
       {/* 2. FORMULÁRIO */}
       <View style={styles.container}>
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.content}>
