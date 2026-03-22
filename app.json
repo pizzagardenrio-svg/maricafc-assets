@@ -25,16 +25,17 @@
       "bundler": "metro",
       "favicon": "./assets/images/escudo-redondo-04.png",
       "meta": {
-        "og:image":       "./assets/images/escudo-redondo-04.png",
+        "og:image":       "https://marica-fc-app.vercel.app/assets/images/escudo-redondo-04.png",
         "og:title":       "Maricá FC • Portal do Sócio",
         "og:description": "O portal oficial do sócio torcedor do Maricá FC. Notícias, tabela, planos e muito mais.",
         "og:type":        "website",
-        "twitter:card":   "summary",
-        "twitter:image":  "./assets/images/escudo-redondo-04.png"
+        "twitter:card":   "summary_large_image",
+        "twitter:image":  "https://marica-fc-app.vercel.app/assets/images/escudo-redondo-04.png"
       }
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      "expo-video"
     ],
     "scheme": "marica-fc-app"
   }

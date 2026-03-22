@@ -1,58 +1,73 @@
 import React, { useEffect } from 'react';
 import { View, StyleSheet, StatusBar } from 'react-native';
 import { useRouter } from 'expo-router';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { Video, ResizeMode } from 'expo-av';
+import { useVideoPlayer, VideoView } from 'expo-video';
 
 export default function IntroVideo() {
   const router = useRouter();
-  
+
+  // ─── Player configurado para tocar uma vez, sem som ──────────────────────
+  const player = useVideoPlayer(
+    require('../assets/images/intro.mp4'),
+    (p) => {
+      p.loop  = false;
+      p.muted = false; // 🛡️ Blindagem 2: com som (iOS respeita isso via expo-video)
+      p.play();
+    }
+  );
+
   useEffect(() => {
-    // 🛡️ Blindagem 1: Timer de segurança (Fail-safe)
-    // Se o vídeo de 3s travar por qualquer motivo, o app abre em 4.5s
+    // 🛡️ Blindagem 1: Timer de segurança — se o vídeo travar, abre em 4.5s
     const backupTimer = setTimeout(() => {
       router.replace('/');
     }, 4500);
 
-    return () => clearTimeout(backupTimer);
+    // Listener de fim de vídeo
+    const subscription = player.addListener('playToEnd', () => {
+      clearTimeout(backupTimer);
+      router.replace('/');
+    });
+
+    // 🛡️ Blindagem 3: Listener de erro — fallback imediato
+    const errorSub = player.addListener('statusChange', (status) => {
+      if (status.error) {
+        console.log('Erro no vídeo:', status.error);
+        clearTimeout(backupTimer);
+        router.replace('/');
+      }
+    });
+
+    return () => {
+      clearTimeout(backupTimer);
+      subscription.remove();
+      errorSub.remove();
+    };
   }, []);
 
   return (
     <View style={styles.container}>
       <StatusBar hidden translucent backgroundColor="transparent" />
-      
-      <Video
-        source={require('../assets/images/intro.mp4')} 
-        style={styles.videoFull} 
-        resizeMode={ResizeMode.CONTAIN} 
-        shouldPlay
-        isLooping={false}
-        playsInSilentModeIOS={true} // 🛡️ Blindagem 2: Som sai mesmo no silencioso (iOS)
-        
-        onPlaybackStatusUpdate={(status) => {
-          if (status.didJustFinish) {
-            router.replace('/');
-          }
-        }}
-        
-        onError={(error) => {
-          console.log("Erro no vídeo:", error);
-          // 🛡️ Blindagem 3: Fallback imediato para não perder o torcedor
-          router.replace('/'); 
-        }}
+
+      <VideoView
+        player={player}
+        style={styles.videoFull}
+        contentFit="contain"
+        nativeControls={false}
+        allowsFullscreen={false}
+        allowsPictureInPicture={false}
       />
-    </View> 
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { 
-    flex: 1, 
-    backgroundColor: '#F4F4F0', // Mesma cor do início do vídeo
-    alignItems: 'center', 
-    justifyContent: 'center' 
+  container: {
+    flex: 1,
+    backgroundColor: '#F4F4F0',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  videoFull: { 
-    ...StyleSheet.absoluteFillObject 
+  videoFull: {
+    ...StyleSheet.absoluteFillObject,
   },
 });
