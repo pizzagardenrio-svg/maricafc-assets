@@ -13,7 +13,7 @@ import { useRouter } from 'expo-router';
 const { width, height } = Dimensions.get('window');
 const COLORS = { navy: '#002147', gold: '#D4AF37', paper: '#F4F4F0', white: '#FFFFFF', intro: '#F4F4F0', muted: '#858580' };
 
-export default function index() {
+export default function Index() {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

@@ -1,49 +1,33 @@
 {
   "expo": {
-    "name": "Maricá F.C.",
+    "name": "Maricá FC",
     "slug": "marica-fc-app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/escudo-redondo-04.png",
+    "icon": "./assets/images/icon.png",
     "userInterfaceStyle": "light",
-    "backgroundColor": "#F4F4F0",
+    "newArchEnabled": true,
     "splash": {
-      "backgroundColor": "#F4F4F0",
-      "image": "./assets/images/escudo-redondo-04.png",
-      "resizeMode": "contain"
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "android": {
-      "package": "marica.futebol.clube",
-      "usesCleartextTraffic": true,
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/images/escudo-redondo-04.png",
-        "backgroundColor": "#FFFFFF"
-      },
-      "splash": {
-        "backgroundColor": "#F4F4F0",
-        "image": "./assets/images/escudo-redondo-04.png"
-      }
+      "image": "./assets/images/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "marica.futebol.clube"
+      "supportsTablet": true
     },
-    "scheme": "maricafc",
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "web": {
+      "favicon": "./assets/images/favicon.png",
+      "bundler": "metro"
+    },
     "plugins": [
-      "expo-secure-store",
       "expo-router"
     ],
-    "web": {
-      "bundler": "metro",
-      "output": "static"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "85302f84-ad35-4a0b-b701-cf3ef6266c79"
-      }
-    }
+    "scheme": "marica-fc-app"
   }
 }
