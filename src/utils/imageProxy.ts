@@ -57,8 +57,7 @@ function cleanFirebaseUrl(url: string): string {
  */
 export const getOptimizedImage = (url: string | undefined | null) => {
   if (!url || !url.startsWith('http')) return url;
-  // Proxy de força bruta via wsrv.nl com encode puro
-  return `https://wsrv.nl/?url=${encodeURIComponent(url)}&default=https://placehold.co/400`;
+  return 'https://images.weserv.nl/?url=' + encodeURIComponent(url.trim()) + '&default=https://placehold.co';
 };
 
 /**

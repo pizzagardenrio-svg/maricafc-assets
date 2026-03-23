@@ -16,6 +16,12 @@ import LojaScreen from './LojaScreen';
 import PortalSocioScreen from './PortalSocioScreen';
 import { auth } from '../src/config/firebase';
 
+if (typeof document !== 'undefined' && Platform.OS === 'web') {
+  const style = document.createElement('style');
+  style.textContent = 'html, body, #root, [data-reactroot] { margin: 0 !important; padding: 0 !important; height: 100vh !important; width: 100vw !important; overflow: hidden !important; background-color: #F4F4F0 !important; position: fixed; }';
+  document.head.append(style);
+}
+
 // ─── Tipos ───────────────────────────────────────────────────────────────────
 type TabId = 'Home' | 'Clube' | 'Agenda' | 'Socio' | 'Loja';
 
@@ -32,96 +38,6 @@ const ROUTE_TO_TAB: Record<string, TabId> = {
 };
 
 const BG = '#F4F4F0';
-
-// ─── Injeção de CSS global para Web (Edge-to-Edge real) ──────────────────────
-// Chamado UMA vez, fora do ciclo de render — evita re-injeção a cada mount.
-function injectWebCSS() {
-  if (Platform.OS !== 'web' || typeof document === 'undefined') return;
-
-  const id = '__marica_global_css';
-  if (document.getElementById(id)) return; // já injetado
-
-  const style = document.createElement('style');
-  style.id = id;
-  style.textContent = `
-    /* ── Reset total para Edge-to-Edge ── */
-    *, *::before, *::after { box-sizing: border-box; }
-
-    html {
-      margin: 0 !important;
-      padding: 0 !important;
-      /* Ocupa a área completa incluindo safe-areas (notch/barra de nav) */
-      height: 100% !important;
-      height: -webkit-fill-available !important;
-      background-color: ${BG} !important;
-      overflow: hidden !important;
-    }
-
-    body {
-      margin: 0 !important;
-      padding: 0 !important;
-      /* Fallback para browsers que não suportam dvh */
-      height: 100% !important;
-      /* Altura dinâmica que respeita notch e barra de navegação */
-      min-height: 100dvh !important;
-      background-color: ${BG} !important;
-      overflow: hidden !important;
-      /* Remove tarjas pretas em áreas de safe-area */
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    /* Suporte a PWA standalone / fullscreen no iOS Safari */
-    @supports (-webkit-touch-callout: none) {
-      body {
-        /* Preenche até a barra de status do iOS */
-        padding-top: env(safe-area-inset-top) !important;
-        padding-bottom: env(safe-area-inset-bottom) !important;
-        padding-left: env(safe-area-inset-left) !important;
-        padding-right: env(safe-area-inset-right) !important;
-        height: -webkit-fill-available !important;
-      }
-    }
-
-    #root {
-      margin: 0 !important;
-      padding: 0 !important;
-      height: 100% !important;
-      min-height: 100dvh !important;
-      background-color: ${BG} !important;
-      overflow: hidden !important;
-    }
-
-    /* Meta theme-color já está no app.json, mas reforça via CSS */
-    :root {
-      color-scheme: light;
-    }
-
-    /* Remove scroll em qualquer filho que possa vazar */
-    html, body, #root {
-      overscroll-behavior: none !important;
-    }
-  `;
-  document.head.prepend(style); // prepend = maior prioridade que outros estilos
-
-  // Garante que o meta theme-color (cor da status bar mobile browser) seja #F4F4F0
-  // evitando a tarja preta no Chrome Android
-  let metaTheme = document.querySelector('meta[name="theme-color"]') as HTMLMetaElement | null;
-  if (!metaTheme) {
-    metaTheme = document.createElement('meta') as HTMLMetaElement;
-    metaTheme.name = 'theme-color';
-    document.head.appendChild(metaTheme);
-  }
-  metaTheme.content = BG;
-
-  // viewport-fit=cover é crítico para o Edge-to-Edge no iOS Safari
-  let metaViewport = document.querySelector('meta[name="viewport"]') as HTMLMetaElement | null;
-  if (metaViewport) {
-    metaViewport.content = 'width=device-width, initial-scale=1, viewport-fit=cover';
-  }
-}
-
-// Executa imediatamente no módulo (antes do primeiro render)
-injectWebCSS();
 
 // ─── Componente interno (já dentro do DataProvider) ───────────────────────────
 function AppShell() {

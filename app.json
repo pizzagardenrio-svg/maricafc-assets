@@ -3,7 +3,7 @@
     "name": "Maricá FC",
     "shortName": "Maricá FC",
     "slug": "marica-fc-app",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "orientation": "portrait",
     "icon": "./assets/images/escudo-redondo-03.png",
     "userInterfaceStyle": "light",
