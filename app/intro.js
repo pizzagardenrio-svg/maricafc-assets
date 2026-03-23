@@ -44,7 +44,7 @@ export default function IntroVideo() {
 
       <VideoView
         player={player}
-        style={styles.videoFull}
+        style={[styles.videoFull, { backgroundColor: '#000' }]}
         contentFit="cover"
         nativeControls={false}
         allowsFullscreen={false}

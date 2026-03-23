@@ -182,6 +182,19 @@ function ResponsiveWrapper({ children }: { children: React.ReactNode }) {
       NavigationBar.setBehaviorAsync('overlay-swipe');
       NavigationBar.setBackgroundColorAsync('#ffffff00');
     }
+
+    // Injeção de CSS global forçada para barrar scroll web
+    if (Platform.OS === 'web') {
+      const style = document.createElement('style');
+      style.textContent = `
+        body, html, #root { 
+          height: 100%; 
+          overflow: hidden; 
+          background-color: #F4F4F0 !important; 
+        }
+      `;
+      document.head.append(style);
+    }
   }, []);
 
   return (
