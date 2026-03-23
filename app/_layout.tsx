@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Stack, useSegments, useRouter } from 'expo-router';
-import { StatusBar, View, Text, Animated, StyleSheet, ActivityIndicator, Platform } from 'react-native';
-import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { View, Text, Animated, StyleSheet, ActivityIndicator, Platform } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+import * as NavigationBar from 'expo-navigation-bar';
 import NavBar from '../src/components/NavBar';
 import HeaderTatico from '../src/components/HeaderTatico';
 import { DataProvider } from '../src/context/DataContext';
@@ -131,7 +132,7 @@ function AppShell() {
   // ─── Render principal ───────────────────────────────────────────────────
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor="transparent" translucent />
+      <StatusBar style="dark" backgroundColor="transparent" translucent />
 
       {isMainApp && <HeaderTatico />}
 
@@ -172,21 +173,27 @@ function AppShell() {
 
 // ─── Wrapper Responsivo (Web vs Native) ────────────────────────────────────
 function ResponsiveWrapper({ children }: { children: React.ReactNode }) {
-  const insets = useSafeAreaInsets();
-  
+  // Edge-to-Edge nativo garantido removendo SafeAreaInsets, que forçava tarja
+  // Transparência na Navigation Bar do Android (SDK 54):
+  useEffect(() => {
+    if (Platform.OS === 'android') {
+      NavigationBar.setPositionAsync('absolute');
+      NavigationBar.setBackgroundColorAsync('#ffffff00');
+    }
+  }, []);
+
   return (
-    <View style={[{ flex: 1, width: '100%', backgroundColor: BG },
-      Platform.OS === 'web' && { 
-        maxWidth: 480, 
-        marginHorizontal: 'auto',
-        boxShadow: '0px 0px 20px rgba(0,0,0,0.1)' as any,
-      },
-      {
-        paddingTop: Platform.OS === 'web' ? 0 : insets.top,
-        paddingBottom: Platform.OS === 'web' ? 0 : insets.bottom
-      }
-    ]}>
-      {children}
+    <View style={{ flex: 1, backgroundColor: '#F4F4F0', alignItems: 'center' }}>
+      <View style={[
+        { flex: 1, width: '100%', backgroundColor: BG },
+        Platform.OS === 'web' && { 
+          maxWidth: 480, 
+          marginHorizontal: 'auto',
+          boxShadow: '0px 0px 20px rgba(0,0,0,0.1)' as any,
+        }
+      ]}>
+        {children}
+      </View>
     </View>
   );
 }
@@ -196,13 +203,11 @@ function ResponsiveWrapper({ children }: { children: React.ReactNode }) {
 // antes de qualquer tela filha tentar consumi-lo via useData().
 export default function Layout() {
   return (
-    <SafeAreaProvider>
-      <DataProvider>
-        <ResponsiveWrapper>
-          <AppShell />
-        </ResponsiveWrapper>
-      </DataProvider>
-    </SafeAreaProvider>
+    <DataProvider>
+      <ResponsiveWrapper>
+        <AppShell />
+      </ResponsiveWrapper>
+    </DataProvider>
   );
 }
 

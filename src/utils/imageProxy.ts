@@ -9,7 +9,7 @@ export const getOptimizedImage = (url: string | undefined | null): string | unde
   if (!url) return undefined;
   // Aplica o proxy APENAS para urls externas ou do firebase, não aplicável para base64 ou require locals.
   if (url.startsWith('http') && url.includes('firebasestorage')) {
-    return `https://wsrv.nl/?url=${encodeURIComponent(url)}`;
+    return `https://wsrv.nl/?url=${encodeURIComponent(url)}&default=https://placehold.co`;
   }
   return url;
 };
