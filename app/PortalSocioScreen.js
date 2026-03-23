@@ -8,6 +8,7 @@ import { doc, getDoc, collection, getDocs, query, orderBy } from 'firebase/fires
 import QRCode from 'react-native-qrcode-svg'; 
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import { getOptimizedImage } from '../src/utils/imageProxy';
 
 const COLORS = {
   navy: '#002147', gold: '#D4AF37', paper: '#F4F4F0', goldLight: '#E8D4A2',
@@ -78,7 +79,7 @@ export default function PortalSocioScreen() {
 
               <View style={styles.cardBody}>
                 <Image 
-                  source={dadosSocio?.photoURL ? { uri: dadosSocio.photoURL } : require('../assets/images/icon.png')} 
+                  source={dadosSocio?.photoURL ? { uri: getOptimizedImage(dadosSocio.photoURL) } : require('../assets/images/icon.png')} 
                   style={styles.userPhoto}
                 />
                 <View style={styles.userData}>
@@ -124,7 +125,7 @@ export default function PortalSocioScreen() {
             <Text style={styles.sectionTitle}>REDE DE PARCEIROS</Text>
             {parceiros.map(item => (
               <View key={item.id} style={styles.partnerCard}>
-                <Image source={{ uri: item.img }} style={styles.partnerLogo} resizeMode="contain" />
+                <Image source={{ uri: getOptimizedImage(item.img) }} style={styles.partnerLogo} resizeMode="contain" />
                 <View style={styles.partnerInfo}>
                   <Text style={styles.partnerName}>{item.nome}</Text>
                   <Text style={styles.discountText}>{item.desconto}</Text>

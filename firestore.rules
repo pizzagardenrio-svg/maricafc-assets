@@ -1,0 +1,29 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Regra Global Restritiva
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Sócios Torcedores: 
+    // - Qualquer um logado pode criar a própria conta
+    // - Apenas o próprio usuário pode ler ou atualizar seus dados
+    match /socio_torcedor/{userId} {
+      allow create: if request.auth != null && request.auth.uid == userId;
+      allow read, update: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Leitura pública global para tabelas, inventário, etc (se não precisar de login para ver)
+    match /clube_banners/{bannerId} {
+      allow read: if true;
+    }
+    
+    // Configurações globais ou times (Leitura Publica)
+    match /jogos/{jogoId} {
+      allow read: if true;
+    }
+  }
+}

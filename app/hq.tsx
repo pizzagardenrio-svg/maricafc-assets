@@ -5,6 +5,7 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useData } from '../src/context/DataContext';
+import { getOptimizedImage } from '../src/utils/imageProxy';
 
 // Componentes
 import CardProximoJogo from '../src/components/CardProximoJogo';
@@ -96,7 +97,7 @@ export default function HQMaricaScreen() {
                 activeOpacity={0.8}
               >
                 <Image
-                  source={{ uri: item.image_url || 'https://picsum.photos/200' }}
+                  source={{ uri: getOptimizedImage(item.image_url) || 'https://picsum.photos/200' }}
                   style={styles.newsImg}
                   resizeMode="cover"
                 />

@@ -14,6 +14,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { db, auth } from '../src/config/firebase';
 import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 import { useRouter } from 'expo-router';
+import { getOptimizedImage } from '../src/utils/imageProxy';
 
 const { width } = Dimensions.get('window');
 const COLORS = {
@@ -88,7 +89,7 @@ export default function ClubeScreen() {
         }}
       >
         <ImageBackground
-          source={{ uri: item.image }}
+          source={{ uri: getOptimizedImage(item.image) }}
           style={styles.image}
           imageStyle={{ borderRadius: 10, resizeMode: isSponsor ? 'contain' : 'cover' }}
         >

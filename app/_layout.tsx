@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Stack, useSegments, useRouter } from 'expo-router';
-import { StatusBar, View, Text, Animated, StyleSheet, ActivityIndicator } from 'react-native';
+import { StatusBar, View, Text, Animated, StyleSheet, ActivityIndicator, Platform } from 'react-native';
+import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import NavBar from '../src/components/NavBar';
 import HeaderTatico from '../src/components/HeaderTatico';
 import { DataProvider } from '../src/context/DataContext';
@@ -140,7 +141,6 @@ function AppShell() {
             headerShown: false,
             animation: 'fade',
             contentStyle: { backgroundColor: BG },
-            detachPreviousScreen: false,
           }}
         >
           <Stack.Screen name="index" />
@@ -170,14 +170,39 @@ function AppShell() {
   );
 }
 
+// ─── Wrapper Responsivo (Web vs Native) ────────────────────────────────────
+function ResponsiveWrapper({ children }: { children: React.ReactNode }) {
+  const insets = useSafeAreaInsets();
+  
+  return (
+    <View style={[{ flex: 1, width: '100%', backgroundColor: BG },
+      Platform.OS === 'web' && { 
+        maxWidth: 480, 
+        marginHorizontal: 'auto',
+        boxShadow: '0px 0px 20px rgba(0,0,0,0.1)' as any,
+      },
+      {
+        paddingTop: Platform.OS === 'web' ? 0 : insets.top,
+        paddingBottom: Platform.OS === 'web' ? 0 : insets.bottom
+      }
+    ]}>
+      {children}
+    </View>
+  );
+}
+
 // ─── Layout raiz — DataProvider SEMPRE monta primeiro ────────────────────────
 // Separar Provider do AppShell garante que o contexto exista
 // antes de qualquer tela filha tentar consumi-lo via useData().
 export default function Layout() {
   return (
-    <DataProvider>
-      <AppShell />
-    </DataProvider>
+    <SafeAreaProvider>
+      <DataProvider>
+        <ResponsiveWrapper>
+          <AppShell />
+        </ResponsiveWrapper>
+      </DataProvider>
+    </SafeAreaProvider>
   );
 }
 
