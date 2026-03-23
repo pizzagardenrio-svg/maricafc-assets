@@ -55,51 +55,11 @@ function cleanFirebaseUrl(url: string): string {
  * @param quality   - Qualidade JPEG/WebP de 1–100 (padrão: 85)
  * @param format    - Formato de saída: 'webp' | 'jpg' | 'png' | 'auto' (padrão: 'webp')
  */
-export function getOptimizedImage(
-  url: string | undefined | null,
-  {
-    width,
-    quality = 85,
-    format  = 'webp',
-  }: {
-    width?:   number;
-    quality?: number;
-    format?:  'webp' | 'jpg' | 'png' | 'auto';
-  } = {}
-): string | undefined | null {
-  // Passa valores falsy e data URIs sem modificação
+export const getOptimizedImage = (url: string | undefined | null) => {
   if (!url || !url.startsWith('http')) return url;
-
-  // Limpa a URL do Firebase antes de enviar ao proxy
-  const cleanUrl = url.includes('firebasestorage.googleapis.com')
-    ? cleanFirebaseUrl(url)
-    : url;
-
-  // Monta os parâmetros do weserv.nl
-  const params = new URLSearchParams();
-
-  // `url` é o parâmetro obrigatório — deve ser a primeira entrada
-  params.set('url', cleanUrl);
-
-  // Fallback exibido se a imagem original falhar
-  params.set('default', FALLBACK_URL);
-
-  // Formato de saída (webp por padrão = menor tamanho)
-  if (format !== 'auto') {
-    params.set('output', format);
-  }
-
-  // Qualidade (ignorada para PNG)
-  params.set('q', String(quality));
-
-  // Redimensionamento proporcional (só adiciona se width foi passado)
-  if (width) {
-    params.set('w', String(width));
-    params.set('fit', 'inside'); // nunca amplia, só reduz
-  }
-
-  return `${WESERV_BASE}?${params.toString()}`;
-}
+  // Proxy de força bruta via wsrv.nl com encode puro
+  return `https://wsrv.nl/?url=${encodeURIComponent(url)}&default=https://placehold.co/400`;
+};
 
 /**
  * Versão simplificada para uso rápido sem opções.
