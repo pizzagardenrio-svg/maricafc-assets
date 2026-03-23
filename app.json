@@ -32,6 +32,7 @@
         "appleTouchIcon": "./assets/images/escudo-redondo-04.png"
       },
       "meta": {
+        "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
         "og:image": "https://marica-fc-app.vercel.app/assets/images/escudo-redondo-04.png",
         "og:title": "Maricá FC • Portal do Sócio",
         "og:description": "O portal oficial do sócio torcedor do Maricá FC. Notícias, tabela, planos e muito mais.",

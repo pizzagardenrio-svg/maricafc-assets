@@ -178,8 +178,9 @@ function ResponsiveWrapper({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (Platform.OS === 'android') {
       NavigationBar.setPositionAsync('absolute');
-      NavigationBar.setBackgroundColorAsync('transparent');
-      NavigationBar.setButtonStyleAsync('dark');
+      // Transforma botões num overlay que some e não empurra layout
+      NavigationBar.setBehaviorAsync('overlay-swipe');
+      NavigationBar.setBackgroundColorAsync('#ffffff00');
     }
   }, []);
 
