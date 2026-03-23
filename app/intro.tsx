@@ -45,22 +45,13 @@ function IntroWeb({ onEnd }) {
     <View style={styles.container}>
       <video
         ref={videoRef}
-        src={src}
+        src={require('../assets/images/intro.mp4')}
         autoPlay
         loop
         muted
         playsInline
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          backgroundColor: '#000',
-          border: 'none',
-          outline: 'none',
-        }}
+        controls={false}
+        style={{ width: '100vw', height: '100vh', objectFit: 'cover', position: 'fixed', top: 0, left: 0 }}
       />
     </View>
   );

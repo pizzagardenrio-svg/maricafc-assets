@@ -55,15 +55,20 @@ function cleanFirebaseUrl(url: string): string {
  * @param quality   - Qualidade JPEG/WebP de 1–100 (padrão: 85)
  * @param format    - Formato de saída: 'webp' | 'jpg' | 'png' | 'auto' (padrão: 'webp')
  */
-export const getOptimizedImage = (url: string | undefined | null) => {
+export function getOptimizedImage(
+  url: string | undefined | null,
+  {
+    width,
+    quality = 85,
+    format  = 'webp',
+  }: {
+    width?:   number;
+    quality?: number;
+    format?:  'webp' | 'jpg' | 'png' | 'auto';
+  } = {}
+): string | undefined | null {
   if (!url || !url.startsWith('http')) return url;
-  return 'https://images.weserv.nl/?url=' + encodeURIComponent(url.trim()) + '&default=https://placehold.co';
-};
+  return 'https://images.weserv.nl' + encodeURIComponent(url.trim()) + '&default=https://placehold.co';
+}
 
-/**
- * Versão simplificada para uso rápido sem opções.
- * Mantém compatibilidade com o código existente que chama getOptimizedImage(url).
- *
- * @deprecated Prefira usar getOptimizedImage(url, { width, quality }) para controle total.
- */
 export default getOptimizedImage;
