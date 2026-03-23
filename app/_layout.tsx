@@ -132,7 +132,7 @@ function AppShell() {
   // ─── Render principal ───────────────────────────────────────────────────
   return (
     <View style={styles.container}>
-      <StatusBar style="dark" backgroundColor="transparent" translucent />
+      <StatusBar style="dark" backgroundColor="transparent" translucent={true} />
 
       {isMainApp && <HeaderTatico />}
 
@@ -178,15 +178,17 @@ function ResponsiveWrapper({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (Platform.OS === 'android') {
       NavigationBar.setPositionAsync('absolute');
-      NavigationBar.setBackgroundColorAsync('#ffffff00');
+      NavigationBar.setBackgroundColorAsync('transparent');
+      NavigationBar.setButtonStyleAsync('dark');
     }
   }, []);
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#F4F4F0', alignItems: 'center' }}>
+    <View style={{ flex: 1, backgroundColor: '#F4F4F0' }}>
       <View style={[
-        { flex: 1, width: '100%', backgroundColor: BG },
+        { flex: 1, backgroundColor: BG },
         Platform.OS === 'web' && { 
+          width: '100%',
           maxWidth: 480, 
           marginHorizontal: 'auto',
           boxShadow: '0px 0px 20px rgba(0,0,0,0.1)' as any,
