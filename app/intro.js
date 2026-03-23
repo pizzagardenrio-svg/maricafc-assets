@@ -11,15 +11,13 @@ export default function IntroVideo() {
     require('../assets/images/intro.mp4'),
     (p) => {
       p.loop  = true;
-      p.muted = true; // Crítico: Navegadores e Vercel barram autoplay COM SOM
+      p.muted = true; // Crítico: Navegadores barram autoplay COM SOM
       p.play();
     }
   );
 
   useEffect(() => {
     // 🛡️ Segurança: Navega automaticamente após 4.5s
-    // Como está em Loop, o playToEnd não será disparado naturalmente, 
-    // dependemos deste timer para ir à tela inicial.
     const backupTimer = setTimeout(() => {
       router.replace('/');
     }, 4500);
@@ -40,11 +38,12 @@ export default function IntroVideo() {
 
   return (
     <View style={styles.container}>
+      {/* Esconde a status bar durante a intro para imersão real */}
       <StatusBar hidden translucent backgroundColor="transparent" />
 
       <VideoView
         player={player}
-        style={[styles.videoFull, { backgroundColor: '#000' }]}
+        style={{ flex: 1, backgroundColor: '#000' }}
         contentFit="cover"
         nativeControls={false}
         allowsFullscreen={false}
@@ -57,11 +56,6 @@ export default function IntroVideo() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#002147',
-  },
-  videoFull: {
-    flex: 1,
-    width: '100%',
-    height: '100%',
+    backgroundColor: '#000',
   },
 });
