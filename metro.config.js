@@ -1,10 +1,14 @@
-const { getDefaultConfig } = require('@expo/metro-config');
-const defaultConfig = getDefaultConfig(__dirname);
+const { getDefaultConfig } = require('expo/metro-config');
+
+const config = getDefaultConfig(__dirname);
 
 // 1. Permite ler arquivos .cjs do Firebase
-defaultConfig.resolver.sourceExts.push('cjs');
+config.resolver.sourceExts.push('cjs');
 
-// 2. SOLUÇÃO FINAL: Desativa exportações instáveis que quebram o Firebase Auth no SDK 54
-defaultConfig.resolver.unstable_enablePackageExports = false;
+// 2. ADICIONA SUPORTE A VÍDEO (Crucial para o intro.mp4 rodar)
+config.resolver.assetExts.push('mp4');
 
-module.exports = defaultConfig;
+// 3. SOLUÇÃO SDK 54: Mantém compatibilidade com Firebase Auth
+config.resolver.unstable_enablePackageExports = false;
+
+module.exports = config;
