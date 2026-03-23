@@ -184,18 +184,21 @@ function ResponsiveWrapper({ children }: { children: React.ReactNode }) {
     if (Platform.OS === 'web') {
       const style = document.createElement('style');
       style.textContent = `
-        body, html, #root { 
-          height: 100%; 
-          overflow: hidden; 
+        html, body, #root { 
+          margin: 0 !important; 
+          padding: 0 !important; 
+          height: 100% !important; 
           background-color: #F4F4F0 !important; 
+          overflow: hidden; 
         }
+        * { box-sizing: border-box; }
       `;
       document.head.append(style);
     }
   }, []);
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#F4F4F0', padding: 0, margin: 0 }}>
+    <View style={{ flex: 1, backgroundColor: '#F4F4F0', paddingTop: 0, paddingBottom: 0 }}>
       <View style={[
         { flex: 1, backgroundColor: BG, padding: 0, margin: 0 },
         Platform.OS === 'web' && { 

@@ -1,24 +1,20 @@
 import React, { useEffect } from 'react';
-import { View, StyleSheet, StatusBar } from 'react-native';
+import { View, StyleSheet, StatusBar, Platform } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useVideoPlayer, VideoView } from 'expo-video';
+
+const VIDEO_SOURCE = require('../assets/images/intro.mp4');
 
 export default function IntroVideo() {
   const router = useRouter();
 
-  // ─── Player configurado para auto-play garantido via Muted ──────────────
-  const player = useVideoPlayer(
-    require('../assets/images/intro.mp4'),
-    (p) => {
-      p.loop  = true;
-      p.muted = true; // Crítico: Navegadores barram autoplay COM SOM
-      p.playsInLine = true;
-      p.play();
-    }
-  );
+  const player = useVideoPlayer(VIDEO_SOURCE, (p) => {
+    p.loop  = true;
+    p.muted = true; 
+    p.play();
+  });
 
   useEffect(() => {
-    // 🛡️ Segurança: Navega automaticamente após 4.5s
     const backupTimer = setTimeout(() => {
       router.replace('/');
     }, 4500);
@@ -39,18 +35,29 @@ export default function IntroVideo() {
 
   return (
     <View style={styles.container}>
-      {/* Esconde a status bar durante a intro para imersão real */}
       <StatusBar hidden translucent backgroundColor="transparent" />
 
-      <VideoView
-        player={player}
-        style={{ flex: 1, backgroundColor: '#000' }}
-        contentFit="cover"
-        nativeControls={false}
-        allowsFullscreen={false}
-        allowsPictureInPicture={false}
-        playsInLine={true}
-      />
+      {Platform.OS === 'web' ? (
+        <video 
+          src={VIDEO_SOURCE}
+          autoPlay 
+          loop 
+          muted 
+          playsInline 
+          controls={false}
+          style={{ width: '100%', height: '100%', objectFit: 'cover', backgroundColor: '#000' }}
+        />
+      ) : (
+        <VideoView
+          player={player}
+          style={{ flex: 1, backgroundColor: '#000' }}
+          contentFit="cover"
+          nativeControls={false}
+          allowsFullscreen={false}
+          allowsPictureInPicture={false}
+          playsInLine={true}
+        />
+      )}
     </View>
   );
 }
@@ -58,6 +65,8 @@ export default function IntroVideo() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000',
+    backgroundColor: '#000', 
+    paddingTop: 0,
+    paddingBottom: 0,
   },
 });
