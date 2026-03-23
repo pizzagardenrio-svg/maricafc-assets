@@ -171,16 +171,13 @@ function AppShell() {
   );
 }
 
-// ─── Wrapper Responsivo (Web vs Native) ────────────────────────────────────
+// ─── Wrapper Responsivo Imersivo (Web vs Native) ────────────────────────────────────
 function ResponsiveWrapper({ children }: { children: React.ReactNode }) {
-  // Edge-to-Edge nativo garantido removendo SafeAreaInsets, que forçava tarja
-  // Transparência na Navigation Bar do Android (SDK 54):
+  // Transparência e botões escuros na Navigation Bar do Android (SDK 54):
   useEffect(() => {
     if (Platform.OS === 'android') {
       NavigationBar.setPositionAsync('absolute');
-      // Transforma botões num overlay que some e não empurra layout
-      NavigationBar.setBehaviorAsync('overlay-swipe');
-      NavigationBar.setBackgroundColorAsync('#ffffff00');
+      NavigationBar.setBackgroundColorAsync('#00000000');
     }
 
     // Injeção de CSS global forçada para barrar scroll web

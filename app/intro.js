@@ -12,6 +12,7 @@ export default function IntroVideo() {
     (p) => {
       p.loop  = true;
       p.muted = true; // Crítico: Navegadores barram autoplay COM SOM
+      p.playsInLine = true;
       p.play();
     }
   );
@@ -48,6 +49,7 @@ export default function IntroVideo() {
         nativeControls={false}
         allowsFullscreen={false}
         allowsPictureInPicture={false}
+        playsInLine={true}
       />
     </View>
   );
