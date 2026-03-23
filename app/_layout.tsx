@@ -185,9 +185,9 @@ function ResponsiveWrapper({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#F4F4F0' }}>
+    <View style={{ flex: 1, backgroundColor: '#F4F4F0', padding: 0, margin: 0 }}>
       <View style={[
-        { flex: 1, backgroundColor: BG },
+        { flex: 1, backgroundColor: BG, padding: 0, margin: 0 },
         Platform.OS === 'web' && { 
           width: '100%',
           maxWidth: 480, 

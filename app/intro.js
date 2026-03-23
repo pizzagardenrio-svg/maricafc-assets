@@ -10,8 +10,8 @@ export default function IntroVideo() {
   const player = useVideoPlayer(
     require('../assets/images/intro.mp4'),
     (p) => {
-      p.loop  = false;
-      p.muted = false; // 🛡️ Blindagem 2: com som (iOS respeita isso via expo-video)
+      p.loop  = true;
+      p.muted = true; 
       p.play();
     }
   );
@@ -51,7 +51,7 @@ export default function IntroVideo() {
       <VideoView
         player={player}
         style={styles.videoFull}
-        contentFit="contain"
+        contentFit="cover"
         nativeControls={false}
         allowsFullscreen={false}
         allowsPictureInPicture={false}
