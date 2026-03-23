@@ -14,39 +14,75 @@
       "backgroundColor": "#F4F4F0"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "icon": "./assets/images/escudo-redondo-03.png"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/escudo-redondo-03.png",
         "backgroundColor": "#F4F4F0"
-      }
+      },
+      "icon": "./assets/images/escudo-redondo-03.png"
     },
     "web": {
       "bundler": "metro",
       "description": "App Atualizado",
       "lang": "pt-BR",
       "favicon": "./assets/images/escudo-redondo-03.png",
-      "themeColor": "#002147",
+      "themeColor": "#F4F4F0",
       "backgroundColor": "#F4F4F0",
       "display": "standalone",
       "pwa": {
-        "appleTouchIcon": "./assets/images/escudo-redondo-03.png"
+        "appleTouchIcon": "./assets/images/escudo-redondo-03.png",
+        "icons": [
+          {
+            "src": "./assets/images/escudo-redondo-03.png",
+            "sizes": "192x192",
+            "type": "image/png"
+          },
+          {
+            "src": "./assets/images/escudo-redondo-03.png",
+            "sizes": "512x512",
+            "type": "image/png"
+          }
+        ]
       },
       "meta": {
         "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
-        "og:image": "https://marica-fc-app.vercel.app",
+
+        "og:image": "https://marica-fc-app.vercel.app/assets/images/escudo-redondo-03.png",
+        "og:image:width": "512",
+        "og:image:height": "512",
+        "og:image:type": "image/png",
         "og:title": "Maricá FC • Portal do Sócio",
         "og:description": "O portal oficial do sócio torcedor do Maricá FC. Notícias, tabela, planos e muito mais.",
         "og:type": "website",
+        "og:url": "https://marica-fc-app.vercel.app",
+
         "twitter:card": "summary_large_image",
-        "twitter:image": "https://marica-fc-app.vercel.app"
+        "twitter:image": "https://marica-fc-app.vercel.app/assets/images/escudo-redondo-03.png",
+        "twitter:title": "Maricá FC • Portal do Sócio",
+        "twitter:description": "O portal oficial do sócio torcedor do Maricá FC.",
+
+        "apple-mobile-web-app-capable": "yes",
+        "apple-mobile-web-app-status-bar-style": "default",
+        "apple-mobile-web-app-title": "Maricá FC",
+        "apple-touch-icon": "./assets/images/escudo-redondo-03.png",
+
+        "mobile-web-app-capable": "yes",
+
+        "theme-color": "#F4F4F0",
+        "msapplication-TileImage": "./assets/images/escudo-redondo-03.png",
+        "msapplication-TileColor": "#002147"
       }
     },
     "plugins": [
       "expo-router",
       "expo-video"
     ],
-    "scheme": "marica-fc-app"
+    "scheme": "marica-fc-app",
+    "assetBundlePatterns": [
+      "assets/**"
+    ]
   }
 }
