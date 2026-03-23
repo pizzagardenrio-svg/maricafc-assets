@@ -6,29 +6,24 @@ import { useVideoPlayer, VideoView } from 'expo-video';
 export default function IntroVideo() {
   const router = useRouter();
 
-  // ─── Player configurado para tocar uma vez, sem som ──────────────────────
+  // ─── Player configurado para auto-play garantido via Muted ──────────────
   const player = useVideoPlayer(
     require('../assets/images/intro.mp4'),
     (p) => {
       p.loop  = true;
-      p.muted = true; 
+      p.muted = true; // Crítico: Navegadores e Vercel barram autoplay COM SOM
       p.play();
     }
   );
 
   useEffect(() => {
-    // 🛡️ Blindagem 1: Timer de segurança — se o vídeo travar, abre em 4.5s
+    // 🛡️ Segurança: Navega automaticamente após 4.5s
+    // Como está em Loop, o playToEnd não será disparado naturalmente, 
+    // dependemos deste timer para ir à tela inicial.
     const backupTimer = setTimeout(() => {
       router.replace('/');
     }, 4500);
 
-    // Listener de fim de vídeo
-    const subscription = player.addListener('playToEnd', () => {
-      clearTimeout(backupTimer);
-      router.replace('/');
-    });
-
-    // 🛡️ Blindagem 3: Listener de erro — fallback imediato
     const errorSub = player.addListener('statusChange', (status) => {
       if (status.error) {
         console.log('Erro no vídeo:', status.error);
@@ -39,7 +34,6 @@ export default function IntroVideo() {
 
     return () => {
       clearTimeout(backupTimer);
-      subscription.remove();
       errorSub.remove();
     };
   }, []);
@@ -63,11 +57,11 @@ export default function IntroVideo() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F4F4F0',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#002147',
   },
   videoFull: {
-    ...StyleSheet.absoluteFillObject,
+    flex: 1,
+    width: '100%',
+    height: '100%',
   },
 });
