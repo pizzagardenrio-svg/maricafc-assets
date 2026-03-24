@@ -55,20 +55,14 @@ function cleanFirebaseUrl(url: string): string {
  * @param quality   - Qualidade JPEG/WebP de 1–100 (padrão: 85)
  * @param format    - Formato de saída: 'webp' | 'jpg' | 'png' | 'auto' (padrão: 'webp')
  */
-export function getOptimizedImage(
-  url: string | undefined | null,
-  {
-    width,
-    quality = 85,
-    format  = 'webp',
-  }: {
-    width?:   number;
-    quality?: number;
-    format?:  'webp' | 'jpg' | 'png' | 'auto';
-  } = {}
-): string | undefined | null {
-  if (!url || !url.startsWith('http')) return url;
-  return 'https://images.weserv.nl' + encodeURIComponent(url.trim()) + '&default=https://placehold.co';
+export const getOptimizedImage = (url: any) => {
+  if (!url || typeof url !== 'string') return url;
+  
+  // Remove espaços e garante que o token do Firebase não quebre o proxy
+  const cleanUrl = url.trim();
+  
+  // CORREÇÃO CRÍTICA: o proxy Weserv precisa de "?url=" e do símbolo "$" no template string
+  return `https://images.weserv.nl/?url=${encodeURIComponent(cleanUrl)}&default=https://placehold.co`;
 }
 
 export default getOptimizedImage;
